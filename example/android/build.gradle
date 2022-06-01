@@ -7,9 +7,14 @@ buildscript {
         targetSdkVersion = 29
     }
     repositories {
-        google()
-        mavenCentral()
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        // google()
+        // mavenCentral()
+        // jcenter()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:3.5.3")
@@ -31,9 +36,14 @@ allprojects {
             url("$rootDir/../node_modules/jsc-android/dist")
         }
 
-        google()
-        mavenCentral()
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        // google()
+        // mavenCentral()
+        // jcenter()
         maven { url 'https://www.jitpack.io' }
     }
 }
