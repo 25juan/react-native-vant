@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { View } from 'react-native';
-import { Flex } from 'react-native-vant';
+import React from 'react';
+import { Button, Cell, ConfigProvider } from 'react-native-vant';
 
 export default function App() {
   return (
-    <View>
-      <Flex>11</Flex>
-    </View>
+    <ConfigProvider>
+      <Button text='hello world' />
+      <Cell />
+    </ConfigProvider>
   );
 }
