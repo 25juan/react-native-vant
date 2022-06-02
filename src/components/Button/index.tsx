@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleProp, Text, TouchableOpacity, ViewStyle } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 import getStyles from './style';
+import { useTheme } from '../ConfigProvider';
 import { bem } from '../helper';
 
 export interface IButtonProps {
@@ -18,6 +19,7 @@ export interface IButtonProps {
   loading?: boolean;
   loadingText?: string;
   onClick?: () => void;
+  onLongPress?: () => void;
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -26,27 +28,69 @@ const Button: React.FC<IButtonProps> = ({
   color,
   block = false,
   plain = false,
-  square = false,
-  round = true,
+  round = false,
   disabled = false,
   hairline = false,
-
   text,
+  loading = false,
+  loadingText,
+  onClick,
+  onLongPress,
 }) => {
+  const themeVars = useTheme();
   const styles = getStyles();
-  const buttonStyle = bem(styles, 'buttonStyle', type, size, {
-    block,
-    plain,
-    square,
-    round,
+  const typeStyles = plain ? styles[type].plain : styles[type].default;
+  const sizeStyles = styles[size];
+  const shapeStyle = round ? sizeStyles.round : styles[size].square;
+  const otherStyles = bem(commonStyles, {
     hairline,
-  }) as Array<StyleProp<ViewStyle>>;
-  const textStyle = { color };
+    block,
+    loading,
+  }) as Array<ViewStyle>;
+
   return (
-    <TouchableOpacity style={buttonStyle} disabled={disabled}>
-      <Text style={textStyle}>{text}</Text>
+    <TouchableOpacity
+      style={[
+        commonStyles.buttonStyle,
+        typeStyles.buttonStyle as ViewStyle,
+        sizeStyles.buttonStyle,
+        shapeStyle,
+        ...otherStyles,
+      ]}
+      disabled={disabled || loading}
+      activeOpacity={themeVars.vanActiveOpacity}
+      onPress={onClick}
+      onLongPress={onLongPress}
+    >
+      <Text
+        style={[
+          commonStyles.textStyle,
+          typeStyles.textStyle,
+          sizeStyles.textStyle,
+          color ? { color } : {},
+        ]}
+      >
+        {loading && loadingText ? loadingText : text}
+      </Text>
     </TouchableOpacity>
   );
 };
 
+const commonStyles = StyleSheet.create({
+  buttonStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textStyle: {},
+  block: {
+    width: '100%',
+  },
+  hairline: {
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  loading: {
+    opacity: 0.8,
+  },
+});
 export default Button;

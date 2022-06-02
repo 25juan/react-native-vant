@@ -1,13 +1,36 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View, ViewStyle } from 'react-native';
 
-export interface IButtonProps {}
+export interface ICellProps {
+  title: string;
+  value: string;
+  label: string;
+  size: 'large' | 'normal';
+  icon: string | number;
+  border: boolean;
+  clickable: boolean;
+  isLink: boolean;
+  required: boolean;
+  center: boolean;
+  arrowDirection: 'left' | 'up' | 'down' | 'right';
+  titleStyle: ViewStyle | Array<ViewStyle>;
+  valueStyle: ViewStyle | Array<ViewStyle>;
+  labelStyle: ViewStyle | Array<ViewStyle>;
+}
 
-const Button: React.FC<IButtonProps> = () => {
+const Cell: React.FC<ICellProps> = () => {
   return (
-    <View>
+    <View style={styles.cellStyle}>
+      <View />
       <Text>Cell组件</Text>
     </View>
   );
 };
-export default Button;
+
+const styles = StyleSheet.create({
+  cellStyle: {
+    flexDirection: 'row',
+  },
+});
+
+export default Cell;

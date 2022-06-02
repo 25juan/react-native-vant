@@ -1,33 +1,172 @@
-import { StyleSheet } from 'react-native';
 import { useTheme } from '../ConfigProvider';
 
 export default () => {
   const themeVars = useTheme();
-  return StyleSheet.create({
-    buttonStyle: {
-      width: 200,
-      height: 40,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
+  return {
+    default: {
+      plain: {
+        buttonStyle: {
+          borderColor: themeVars.vanGray3,
+          borderStyle: 'solid',
+          borderWidth: themeVars.vanBorderWidthBase,
+          backgroundColor: themeVars.vanWhite,
+        },
+        textStyle: {
+          color: themeVars.vanGray8,
+        },
+      },
+      default: {
+        buttonStyle: {
+          borderColor: themeVars.vanGray3,
+          borderStyle: 'solid',
+          borderWidth: themeVars.vanBorderWidthBase,
+          backgroundColor: themeVars.vanWhite,
+        },
+        textStyle: {
+          color: themeVars.vanGray8,
+        },
+      },
     },
     primary: {
-      backgroundColor: themeVars.vanBlue,
+      plain: {
+        buttonStyle: {
+          borderColor: themeVars.vanBlue,
+          borderStyle: 'solid',
+          borderWidth: themeVars.vanBorderWidthBase,
+        },
+        textStyle: {
+          color: themeVars.vanBlue,
+        },
+      },
+      default: {
+        buttonStyle: {
+          backgroundColor: themeVars.vanBlue,
+        },
+        textStyle: {
+          color: themeVars.vanWhite,
+        },
+      },
     },
     success: {
-      backgroundColor: themeVars.vanGreen,
+      plain: {
+        buttonStyle: {
+          borderColor: themeVars.vanGreen,
+          borderStyle: 'solid',
+          borderWidth: themeVars.vanBorderWidthBase,
+        },
+        textStyle: {
+          color: themeVars.vanGreen,
+        },
+      },
+      default: {
+        buttonStyle: {
+          backgroundColor: themeVars.vanGreen,
+        },
+        textStyle: {
+          color: themeVars.vanWhite,
+        },
+      },
     },
     warning: {
-      backgroundColor: themeVars.vanOrange,
+      plain: {
+        buttonStyle: {
+          borderColor: themeVars.vanOrange,
+          borderStyle: 'solid',
+          borderWidth: themeVars.vanBorderWidthBase,
+        },
+        textStyle: {
+          color: themeVars.vanOrange,
+        },
+      },
+      default: {
+        buttonStyle: {
+          backgroundColor: themeVars.vanOrange,
+        },
+        textStyle: {
+          color: themeVars.vanWhite,
+        },
+      },
     },
     danger: {
-      backgroundColor: themeVars.vanRed,
+      plain: {
+        buttonStyle: {
+          borderColor: themeVars.vanRed,
+          borderStyle: 'solid',
+          borderWidth: themeVars.vanBorderWidthBase,
+        },
+        textStyle: {
+          color: themeVars.vanRed,
+        },
+      },
+      default: {
+        buttonStyle: {
+          backgroundColor: themeVars.vanRed,
+        },
+        textStyle: {
+          color: themeVars.vanWhite,
+        },
+      },
     },
-    square: {
-      borderRadius: 0,
+    mini: {
+      buttonStyle: {
+        paddingHorizontal: themeVars.vanPaddingBase,
+        height: 24,
+      },
+      textStyle: {
+        fontSize: themeVars.vanFontSizeXS,
+      },
+      square: {
+        borderRadius: themeVars.vanBorderRadiusSM,
+      },
+      round: {
+
+        borderRadius: themeVars.vanBorderRadiusMax,
+      },
     },
-    round: {
-      borderRadius: themeVars.vanBorderRadiusLG,
+    small: {
+      buttonStyle: {
+        paddingHorizontal: themeVars.vanPaddingSM,
+        height: 32,
+      },
+      textStyle: {
+        fontSize: themeVars.vanFontSizeSM,
+      },
+      square: {
+        borderRadius: themeVars.vanBorderRadiusSM,
+      },
+      round: {
+        borderRadius: themeVars.vanBorderRadiusMax,
+      },
     },
-  });
+    normal: {
+      buttonStyle: {
+        paddingHorizontal: themeVars.vanPaddingMD,
+        height: 44,
+      },
+      textStyle: {
+        fontSize: themeVars.vanFontSizeMD,
+      },
+      square: {
+        borderRadius: themeVars.vanBorderRadiusMD,
+      },
+      round: {
+        borderRadius: themeVars.vanBorderRadiusMax,
+      },
+    },
+    large: {
+      buttonStyle: {
+        paddingHorizontal: themeVars.vanPaddingLG,
+        height: 48,
+      },
+      textStyle: {
+        fontSize: themeVars.vanFontSizeLG,
+      },
+      square: {
+        borderRadius: themeVars.vanBorderRadiusLG,
+      },
+      round: {
+        borderRadius: themeVars.vanBorderRadiusMax,
+      },
+    },
+  };
 };
