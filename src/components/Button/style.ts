@@ -119,7 +119,6 @@ export default () => {
         borderRadius: themeVars.vanBorderRadiusSM,
       },
       round: {
-
         borderRadius: themeVars.vanBorderRadiusMax,
       },
     },

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 import getStyles from './style';
 import { useTheme } from '../ConfigProvider';
-import { bem } from '../helper';
+import { bem } from '../../helper';
 
 export interface IButtonProps {
   type?: 'default' | 'primary' | 'success' | 'warning' | 'danger';
