@@ -1,2 +1,2 @@
-import arrowRight from './icons/arrow-right.png';
+const arrowRight = require('./icons/arrow-right.png')
 export { arrowRight };
