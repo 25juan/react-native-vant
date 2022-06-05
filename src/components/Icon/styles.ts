@@ -4,6 +4,7 @@ export default () => {
   return StyleSheet.create({
     iconStyle: {
       position: 'relative',
+      paddingHorizontal: 4,
     },
   });
 };

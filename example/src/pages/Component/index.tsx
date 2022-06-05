@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
-import { Cell } from 'react-native-vant';
+import { Cell, registerIcons } from 'react-native-vant';
 
+registerIcons({
+  'component.button': require('../../icons/component.png'),
+});
 interface IMenuItemProps {
   title: string;
   path: string;
@@ -10,7 +13,7 @@ interface IMenuItemProps {
 const defaultMenus: Array<IMenuItemProps> = [
   {
     title: 'Button 按钮',
-    icon: '',
+    icon: 'component.button',
     path: '',
   },
   {
@@ -41,8 +44,15 @@ const Component: React.FC<{}> = () => {
   return (
     <FlatList
       data={components}
-      renderItem={({ item }) => (
-        <Cell isLink border onClick={handleClick} title={item.title} />
+      renderItem={({ item, index }) => (
+        <Cell
+          isLink
+          border
+          key={index}
+          onClick={handleClick}
+          icon={'component.button'}
+          title={item.title}
+        />
       )}
     />
   );

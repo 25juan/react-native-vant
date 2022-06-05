@@ -10,7 +10,7 @@ import {
 import useStyles, { useConditionStyle } from './style';
 import { useTheme } from '../ConfigProvider';
 import { bemObj } from '../../helper';
-import Icon from '../Icon';
+import Icon, { IIconProps } from '../Icon';
 
 export interface ICellProps {
   // 左侧标题
@@ -42,6 +42,10 @@ export interface ICellProps {
   style?: ViewStyle | Array<ViewStyle>;
   onClick?: () => void;
   onLongPress?: () => void;
+  leftIconProps?: IIconProps;
+  renderLeftIcon?: () => React.ReactElement;
+  rightIconProps?: IIconProps;
+  renderRightIcon?: () => React.ReactElement;
 }
 
 const Cell: React.FC<ICellProps> = ({
@@ -50,6 +54,7 @@ const Cell: React.FC<ICellProps> = ({
   value,
   center,
   border,
+  icon,
   required,
   isLink = false,
   titleStyle,
@@ -58,6 +63,10 @@ const Cell: React.FC<ICellProps> = ({
   style,
   onClick,
   onLongPress,
+  leftIconProps,
+  rightIconProps,
+  renderLeftIcon,
+  renderRightIcon,
 }) => {
   const themeVars = useTheme();
   const styles = useStyles();
@@ -71,7 +80,17 @@ const Cell: React.FC<ICellProps> = ({
   const renderRequired = () =>
     required ? <Text style={styles.requiredStyle}>*</Text> : null;
   const renderArrow = () =>
-    isLink ? <Icon name="arrowRight" size="14" /> : null;
+    renderRightIcon ? (
+      renderRightIcon()
+    ) : isLink ? (
+      <Icon name="arrowRight" size="14" {...rightIconProps} />
+    ) : null;
+  const _renderLeftIcon = () =>
+    renderLeftIcon ? (
+      renderLeftIcon()
+    ) : icon ? (
+      <Icon name={icon} size="14" {...leftIconProps} />
+    ) : null;
   return (
     <TouchableOpacity
       style={[
@@ -83,13 +102,19 @@ const Cell: React.FC<ICellProps> = ({
       activeOpacity={activeOpacity}
     >
       {renderRequired()}
+      {_renderLeftIcon()}
       <View style={styles.centerStyle}>
-        <Text style={[styles.titleStyle, StyleSheet.flatten(titleStyle)]}>
+        <Text
+          numberOfLines={1}
+          style={[styles.titleStyle, StyleSheet.flatten(titleStyle)]}
+        >
           {title}
         </Text>
-        <Text style={[styles.labelStyle, StyleSheet.flatten(labelStyle)]}>
-          {label}
-        </Text>
+        {label ? (
+          <Text style={[styles.labelStyle, StyleSheet.flatten(labelStyle)]}>
+            {label}
+          </Text>
+        ) : null}
       </View>
       <View style={styles.rightStyle}>
         <Text style={[styles.valueStyle, StyleSheet.flatten(valueStyle)]}>

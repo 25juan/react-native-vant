@@ -5,6 +5,9 @@ import { useTheme } from '../ConfigProvider';
 import { isExternal, isNum } from '../../helper';
 import useStyles from './styles';
 import Badge from '../Badge';
+import { getRegisterIcons } from '../../helper';
+
+const staticPngs = { ...getRegisterIcons(), ...assets };
 
 export interface IIconProps {
   name: string | number;
@@ -37,7 +40,7 @@ const Icon: React.FC<IIconProps> = ({
   if (typeof name === 'string') {
     source = isExternal(name)
       ? { uri: name }
-      : (assets as Record<string, number>)[name];
+      : (staticPngs as Record<string, number>)[name];
   } else {
     source = name;
   }

@@ -34,3 +34,12 @@ export function bemObj(
   });
   return filterStyle;
 }
+
+type IconMap = Record<string, string | number>;
+let iconsMap: IconMap = {};
+export function registerIcons(icons: IconMap) {
+  iconsMap = { ...iconsMap, ...icons };
+}
+export function getRegisterIcons() {
+  return iconsMap;
+}
