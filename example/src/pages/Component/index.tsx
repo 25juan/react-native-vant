@@ -37,11 +37,13 @@ const defaultMenus: Array<IMenuItemProps> = [
 
 const Component: React.FC<{}> = () => {
   const [components] = useState<Array<IMenuItemProps>>(defaultMenus);
-
+  const handleClick = () => {};
   return (
     <FlatList
       data={components}
-      renderItem={({ item }) => <Cell isLink border title={item.title} />}
+      renderItem={({ item }) => (
+        <Cell isLink border onClick={handleClick} title={item.title} />
+      )}
     />
   );
 };
