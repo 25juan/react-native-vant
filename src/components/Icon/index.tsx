@@ -50,7 +50,7 @@ const Icon: React.FC<IIconProps> = ({
     tintColor,
   };
   const renderDot = () => (dot ? <Badge dot /> : null);
-  const renderBadge = () => (badge !== null || badge !== undefined ? <Badge content={badge} /> : null);
+  const renderBadge = () => (badge !== null ? <Badge content={badge} /> : null);
   const styles = useStyles();
   return (
     <TouchableOpacity

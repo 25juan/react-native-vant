@@ -51,7 +51,7 @@ const Cell: React.FC<ICellProps> = ({
   center,
   border,
   required,
-  isLink = true,
+  isLink = false,
   titleStyle,
   labelStyle,
   valueStyle,
