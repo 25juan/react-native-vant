@@ -4,7 +4,13 @@ import Transition from './Transition';
 import type { FadeProps } from './types';
 
 const Fade = forwardRef<any, FadeProps>((props, ref) => {
-  const { children, in: animationState, entryDuration, exitDuration, ...rest } = props;
+  const {
+    children,
+    in: animationState,
+    entryDuration,
+    exitDuration,
+    ...rest
+  } = props;
 
   return (
     <Transition

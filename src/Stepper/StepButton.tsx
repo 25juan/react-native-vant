@@ -1,5 +1,11 @@
 import React, { useRef } from 'react';
-import { StyleProp, View, TextStyle, StyleSheet, GestureResponderEvent } from 'react-native';
+import {
+  StyleProp,
+  View,
+  TextStyle,
+  StyleSheet,
+  GestureResponderEvent,
+} from 'react-native';
 import TouchableOpacity from '../TouchableOpacity';
 import type { TouchableOpacityProps } from '../TouchableOpacity/type';
 
@@ -12,7 +18,15 @@ interface StepButtonProps extends TouchableOpacityProps {
 const LONG_PRESS_INTERVAL = 200;
 
 const StepButton = (props: StepButtonProps): JSX.Element => {
-  const { isPlus, lineStyle, style, onPress, onLongPress, onPressOut, ...rest } = props;
+  const {
+    isPlus,
+    lineStyle,
+    style,
+    onPress,
+    onLongPress,
+    onPressOut,
+    ...rest
+  } = props;
   const longPressTimer = useRef<ReturnType<typeof setTimeout>>();
 
   const handlePress = (event: GestureResponderEvent) => {
@@ -43,10 +57,12 @@ const StepButton = (props: StepButtonProps): JSX.Element => {
       {...rest}
     >
       <View style={[styles.horizontal, lineStyle]} />
-      {isPlus && (
+      {isPlus ? (
         <View style={styles.plusWrapper}>
           <View style={[styles.vertical, lineStyle]} />
         </View>
+      ) : (
+        <></>
       )}
     </TouchableOpacity>
   );

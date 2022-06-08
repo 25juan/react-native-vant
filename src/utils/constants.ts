@@ -33,7 +33,9 @@ function setStatusBarHeight() {
 }
 
 function getAspectRatio() {
-  return screenWidth < screenHeight ? screenHeight / screenWidth : screenWidth / screenHeight;
+  return screenWidth < screenHeight
+    ? screenHeight / screenWidth
+    : screenWidth / screenHeight;
 }
 
 function getOrientation(height: number, width: number) {
@@ -53,14 +55,19 @@ const accessibility = {
   isScreenReaderEnabled: false,
 };
 
-function handleScreenReaderChanged(isScreenReaderEnabled: AccessibilityChangeEvent) {
+function handleScreenReaderChanged(
+  isScreenReaderEnabled: AccessibilityChangeEvent
+) {
   accessibility.isScreenReaderEnabled = isScreenReaderEnabled as boolean;
 }
 
-AccessibilityInfo.addEventListener('screenReaderChanged', handleScreenReaderChanged);
+AccessibilityInfo.addEventListener(
+  'screenReaderChanged',
+  handleScreenReaderChanged
+);
 
 function setAccessibility() {
-  AccessibilityInfo.isScreenReaderEnabled().then(isScreenReaderEnabled => {
+  AccessibilityInfo.isScreenReaderEnabled().then((isScreenReaderEnabled) => {
     accessibility.isScreenReaderEnabled = isScreenReaderEnabled;
   });
 }
@@ -69,7 +76,10 @@ setAccessibility();
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-isTablet = Platform.isPad || (getAspectRatio() < 1.6 && Math.max(screenWidth, screenHeight) >= 900);
+isTablet =
+  // @ts-ignore
+  Platform.isPad ||
+  (getAspectRatio() < 1.6 && Math.max(screenWidth, screenHeight) >= 900);
 
 const constants = {
   /* Platform */

@@ -46,7 +46,10 @@ export const renderNetwork = () => (
         <Path d="M36 131V53H16v20H2v58h34zM123 15h22v14h9v77h-31V15z" />
       </G>
       <Path fill="url(#b)" d="M0 139h160v21H0z" />
-      <Path d="M80 54a7 7 0 0 1 3 13v27l-2 2h-2a2 2 0 0 1-2-2V67a7 7 0 0 1 3-13z" fill="url(#c)" />
+      <Path
+        d="M80 54a7 7 0 0 1 3 13v27l-2 2h-2a2 2 0 0 1-2-2V67a7 7 0 0 1 3-13z"
+        fill="url(#c)"
+      />
       <G opacity={0.6} strokeLinecap="round" strokeWidth={7} stroke="url(#d)">
         <Path d="M64 47a19 19 0 0 0-5 13c0 5 2 10 5 13M53 36a34 34 0 0 0 0 48M95 73a19 19 0 0 0 6-13c0-5-2-9-6-13M106 84a34 34 0 0 0 0-48" />
       </G>
@@ -94,7 +97,15 @@ export const renderMaterial = () => (
     </G>
     <G transform="translate(36 50)" fill="none">
       <G transform="translate(8)">
-        <Rect fill="#EBEDF0" opacity={0.6} x={38} y={13} width={36} height={53} rx={2} />
+        <Rect
+          fill="#EBEDF0"
+          opacity={0.6}
+          x={38}
+          y={13}
+          width={36}
+          height={53}
+          rx={2}
+        />
         <Rect fill="url(#c)" width={64} height={66} rx={2} />
         <Rect fill="#FFF" x={6} y={6} width={52} height={55} rx={1} />
         <G transform="translate(15 17)" fill="url(#d)">

@@ -7,10 +7,12 @@ import Constants from '../utils/constants';
 
 export type ScrollToSupportedViews = ScrollView | FlatList;
 
-const isScrollView = <T extends ScrollView>(ref: ScrollToSupportedViews | null): ref is T =>
-  isFunction(get(ref, 'scrollTo'));
-const isFlatList = <T extends FlatList>(ref: ScrollToSupportedViews | null): ref is T =>
-  isFunction(get(ref, 'scrollToOffset'));
+const isScrollView = <T extends ScrollView>(
+  ref: ScrollToSupportedViews | null
+): ref is T => isFunction(get(ref, 'scrollTo'));
+const isFlatList = <T extends FlatList>(
+  ref: ScrollToSupportedViews | null
+): ref is T => isFunction(get(ref, 'scrollToOffset'));
 
 export type ScrollToProps<T extends ScrollToSupportedViews> = {
   /**
@@ -83,7 +85,10 @@ const useScrollTo = <T extends ScrollToSupportedViews>(
         !isUndefined(contentSize.current) &&
         !isUndefined(containerSize.current)
       ) {
-        const scrollingWidth = Math.max(0, contentSize.current - containerSize.current);
+        const scrollingWidth = Math.max(
+          0,
+          contentSize.current - containerSize.current
+        );
         // eslint-disable-next-line no-param-reassign
         offset = scrollingWidth - offset;
       }

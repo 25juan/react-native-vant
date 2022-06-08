@@ -1,7 +1,14 @@
 import React, { useMemo, useCallback, memo } from 'react';
 import isNil from 'lodash-es/isNil';
 import toString from 'lodash-es/toString';
-import { View, TextInput, StyleSheet, TextStyle, GestureResponderEvent } from 'react-native';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  TextStyle,
+  GestureResponderEvent,
+  TouchableOpacity,
+} from 'react-native';
 import { useThemeFactory } from '../Theme';
 import { useRefState } from '../hooks';
 import { formatNumber } from '../utils/number';
@@ -9,7 +16,7 @@ import type { StepperProps } from './type';
 import { createStyle } from './style';
 import StepButton from './StepButton';
 
-const Stepper = (props: StepperProps): JSX.Element => {
+const Stepper: React.FC<StepperProps> = (props): JSX.Element => {
   const {
     theme = 'default',
     max = Number.MAX_VALUE,
@@ -54,8 +61,8 @@ const Stepper = (props: StepperProps): JSX.Element => {
     return Number(format(_defaultValue));
   };
 
-  const [current, setCurrent, currentRef] = useRefState<number | undefined>(() =>
-    getInitialValue()
+  const [current, setCurrent, currentRef] = useRefState<number | undefined>(
+    () => getInitialValue()
   );
 
   const minusDisabled = useMemo(
@@ -70,13 +77,15 @@ const Stepper = (props: StepperProps): JSX.Element => {
 
   const innerChange = useCallback(
     async (value?: number) => {
-      const couldChange = await Promise.resolve(props.beforeChange?.(value) ?? true);
+      const couldChange = await Promise.resolve(
+        props.beforeChange?.(value) ?? true
+      );
       if (couldChange) {
         setCurrent(value);
         props.onChange?.(value);
       }
     },
-    [props.onChange, props.beforeChange]
+    [props, setCurrent]
   );
 
   const handleMinus = (event: GestureResponderEvent) => {
@@ -115,7 +124,11 @@ const Stepper = (props: StepperProps): JSX.Element => {
   const inputColor = StyleSheet.flatten<TextStyle>(styles.input).color;
 
   return (
-    <View {...rest} style={[styles.stepper, rest.style]} onStartShouldSetResponder={() => true}>
+    <View
+      {...rest}
+      style={[styles.stepper, rest.style]}
+      onStartShouldSetResponder={() => true}
+    >
       {showMinus && (
         <StepButton
           disabled={minusDisabled}
@@ -127,20 +140,24 @@ const Stepper = (props: StepperProps): JSX.Element => {
         />
       )}
       {showInput && (
-        <TextInput
-          value={toString(current)}
-          underlineColorAndroid="transparent"
-          style={[styles.input, props.disabled && styles.disabledInput]}
-          textAlign="center"
-          selectionColor={inputColor}
-          keyboardType="numeric"
-          editable={!props.disableInput && !props.disabled}
-          placeholder={props.placeholder}
-          onFocus={props.onFocus}
-          onBlur={props.onBlur}
-          onPressIn={props.onClick}
-          onChangeText={handleInput}
-        />
+        <TouchableOpacity onPress={props.onClick}>
+          <TextInput
+            value={toString(current)}
+            underlineColorAndroid="transparent"
+            style={[
+              styles.input,
+              { textAlign: 'center' },
+              props.disabled && styles.disabledInput,
+            ]}
+            selectionColor={inputColor}
+            keyboardType="numeric"
+            editable={!props.disableInput && !props.disabled}
+            placeholder={props.placeholder}
+            onFocus={props.onFocus}
+            onBlur={props.onBlur}
+            onChangeText={handleInput}
+          />
+        </TouchableOpacity>
       )}
       {showPlus && (
         <StepButton

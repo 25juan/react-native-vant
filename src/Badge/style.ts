@@ -12,7 +12,10 @@ interface Styles {
 
 type ExtraParams = Pick<BadgeProps, 'color'>;
 
-export const createStyle = (theme: DiceUI.Theme, { color }: ExtraParams): Styles => {
+export const createStyle = (
+  theme: DiceUI.Theme,
+  { color }: ExtraParams
+): Styles => {
   const backgroundColor = color ?? theme.badge_background_color;
 
   return StyleSheet.create<Styles>({

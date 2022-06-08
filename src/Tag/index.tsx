@@ -1,5 +1,12 @@
 import React, { FC, useRef } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, Text, Animated, Platform } from 'react-native';
+import {
+  View,
+  TouchableWithoutFeedback,
+  StyleSheet,
+  Text,
+  Animated,
+  Platform,
+} from 'react-native';
 import type { TextStyle } from 'react-native';
 
 import { useUpdateEffect } from '../hooks';
@@ -8,7 +15,7 @@ import Icon from '../Icon';
 import type { TagProps } from './interface';
 import createStyle from './style';
 
-const Tag: FC<TagProps> = props => {
+const Tag: FC<TagProps> = (props) => {
   const {
     onPress,
     children,
@@ -47,12 +54,17 @@ const Tag: FC<TagProps> = props => {
     }).start();
   }, [show]);
 
-  const textStyleSummary: TextStyle = StyleSheet.flatten([styles.text, textStyle]);
+  const textStyleSummary: TextStyle = StyleSheet.flatten([
+    styles.text,
+    textStyle,
+  ]);
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <Animated.View style={[styles.tag, { opacity: fadeAnim }, style]}>
-        <View style={[styles.wrapper, mark ? styles.wrapperMark : null, innerStyle]}>
+        <View
+          style={[styles.wrapper, mark ? styles.wrapperMark : null, innerStyle]}
+        >
           <Text style={textStyleSummary}>{children}</Text>
           {closeable ? (
             <TouchableWithoutFeedback onPress={onClose}>

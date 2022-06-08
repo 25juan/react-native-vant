@@ -2,7 +2,12 @@ import type { ViewStyle, StyleProp, TextStyle } from 'react-native';
 import type { IconNames } from '../Icon';
 import type Loading from '../Loading';
 
-export type ButtonType = 'primary' | 'success' | 'warning' | 'danger' | 'default';
+export type ButtonType =
+  | 'primary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'default';
 export type ButtonSize = 'large' | 'small' | 'mini' | 'normal';
 
 type LoadingProps = React.ComponentProps<typeof Loading>;

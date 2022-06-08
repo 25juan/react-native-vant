@@ -5,13 +5,16 @@ import ActionBarContext from './ActionBarContext';
 import { useThemeFactory } from '../Theme';
 import { createBarStyles } from './style';
 
-const ActionBar: React.FC<ActionBarProps> = props => {
+const ActionBar: React.FC<ActionBarProps> = (props) => {
   const { safeAreaInsetBottom = true } = props;
   const { styles } = useThemeFactory(createBarStyles);
-  const children = useMemo(() => React.Children.toArray(props.children), [props.children]);
-
+  const children = useMemo(
+    () => React.Children.toArray(props.children),
+    [props.children]
+  );
+  const value = { parent: { children } };
   return (
-    <ActionBarContext.Provider value={{ parent: { children } }}>
+    <ActionBarContext.Provider value={value}>
       <View style={[styles.bar, props.style]} useSafeArea={safeAreaInsetBottom}>
         {React.Children.toArray(props.children)
           .filter(React.isValidElement)

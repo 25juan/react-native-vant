@@ -1,6 +1,17 @@
 import React, { forwardRef, useState, useMemo } from 'react';
-import { View, Pressable, TextInput, Text, StyleSheet, ColorValue } from 'react-native';
-import type { StyleProp, TextStyle, TextInputIOSProps, KeyboardTypeOptions } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  TextInput,
+  Text,
+  StyleSheet,
+} from 'react-native';
+import type {
+  StyleProp,
+  TextStyle,
+  TextInputIOSProps,
+  KeyboardTypeOptions,
+} from 'react-native';
 import { Clear, QuestionO } from '@rn-vant/icons';
 import toString from 'lodash-es/toString';
 import isFunction from 'lodash-es/isFunction';
@@ -49,19 +60,22 @@ const Field = forwardRef<FieldInstance, FieldProps>((props, ref) => {
   const showClear = useMemo(() => {
     if (props.clearable && !props?.readonly) {
       const hasValue = value !== '' && value !== undefined;
-      const trigger = clearTrigger === 'always' || (clearTrigger === 'focus' && inputFocus);
+      const trigger =
+        clearTrigger === 'always' || (clearTrigger === 'focus' && inputFocus);
       return hasValue && trigger;
     }
     return false;
-  }, [value, clearTrigger, inputFocus]);
+  }, [props.clearable, props?.readonly, value, clearTrigger, inputFocus]);
 
-  const formatValue = useMemoizedFn((inputValue: string | number, trigger = 'onChange') => {
-    if (isFunction(formatter) && trigger === formatTrigger) {
-      return formatter(inputValue);
+  const formatValue = useMemoizedFn(
+    (inputValue: string | number, trigger = 'onChange') => {
+      if (isFunction(formatter) && trigger === formatTrigger) {
+        return formatter(inputValue);
+      }
+
+      return inputValue;
     }
-
-    return inputValue;
-  });
+  );
 
   const handleFocus = useMemoizedFn((e: InputEvent) => {
     setInputFocus(true);
@@ -73,52 +87,62 @@ const Field = forwardRef<FieldInstance, FieldProps>((props, ref) => {
     props.onBlur?.(e);
   });
 
-  const handleChange = useMemoizedFn((text: string, trigger?: FieldFormatTrigger) => {
-    contentChanged.current = true;
-    let finalValue: string | number = text;
-    if (type === 'number' || type === 'digit') {
-      const isNumber = type === 'number';
-      finalValue = formatNumber(finalValue, isNumber, isNumber);
+  const handleChange = useMemoizedFn(
+    (text: string, trigger?: FieldFormatTrigger) => {
+      contentChanged.current = true;
+      let finalValue: string | number = text;
+      if (type === 'number' || type === 'digit') {
+        const isNumber = type === 'number';
+        finalValue = formatNumber(finalValue, isNumber, isNumber);
+      }
+      finalValue = formatValue(finalValue, trigger);
+      setValue(finalValue);
     }
-    finalValue = formatValue(finalValue, trigger);
-    setValue(finalValue);
-  });
+  );
 
-  const handleContentSizeChange = useMemoizedFn((event: ContentSizeChangeEvent) => {
-    if (!contentChanged.current) return;
-    let _height: number;
-    if (autosize) {
-      const { minHeight = singleRowHeight, maxHeight = event.nativeEvent.contentSize.height } =
-        isObject(autosize) ? autosize : {};
-      _height = Math.max(minHeight, maxHeight);
-    } else if (rows > 1) {
-      _height = rows * singleRowHeight;
-    } else {
-      _height = singleRowHeight;
+  const handleContentSizeChange = useMemoizedFn(
+    (event: ContentSizeChangeEvent) => {
+      if (!contentChanged.current) return;
+      let _height: number;
+      if (autosize) {
+        const {
+          minHeight = singleRowHeight,
+          maxHeight = event.nativeEvent.contentSize.height,
+        } = isObject(autosize) ? autosize : {};
+        _height = Math.max(minHeight, maxHeight);
+      } else if (rows > 1) {
+        _height = rows * singleRowHeight;
+      } else {
+        _height = singleRowHeight;
+      }
+      setInputHeight(_height);
     }
-    setInputHeight(_height);
-  });
+  );
 
   const getHeight = useMemoizedFn(() => {
     if (inputHeight) return inputHeight;
     return rows * singleRowHeight;
   });
 
-  const renderTooltip = (iconColor?: ColorValue, iconSize?: number) => {
+  const renderTooltip = (iconColor?: string, iconSize?: number) => {
     const { tooltip } = props;
     if (tooltip) {
       let icon = (<QuestionO />) as React.ReactNode;
       let dialogProps = { message: tooltip };
       if (!(React.isValidElement(tooltip) || typeof tooltip === 'string')) {
-        const { icon: customIcon, ...customDialogProps } = tooltip as FieldTooltipProps;
+        const { icon: customIcon, ...customDialogProps } =
+          tooltip as FieldTooltipProps;
         icon = customIcon || icon;
         dialogProps = customDialogProps as typeof dialogProps;
       }
-
+      const pressAbleStyle = { marginLeft: 2 };
       return (
-        <Pressable style={{ marginLeft: 2 }} onPress={() => Dialog.show(dialogProps)}>
+        <TouchableOpacity
+          style={pressAbleStyle}
+          onPress={() => Dialog.show(dialogProps)}
+        >
           {cloneReactNode(icon, { color: iconColor, size: iconSize })}
-        </Pressable>
+        </TouchableOpacity>
       );
     }
     return null;
@@ -135,7 +159,12 @@ const Field = forwardRef<FieldInstance, FieldProps>((props, ref) => {
 
     if (label) {
       return (
-        <View style={[styles.labelWrapper, !!props.labelWidth && { width: props.labelWidth }]}>
+        <View
+          style={[
+            styles.labelWrapper,
+            !!props.labelWidth && { width: props.labelWidth },
+          ]}
+        >
           <Text style={textStyle}>
             {label}
             {colon && ':'}
@@ -150,34 +179,38 @@ const Field = forwardRef<FieldInstance, FieldProps>((props, ref) => {
   const renderLeftIcon = () => {
     const { leftIcon, onClickLeftIcon } = props;
     if (!leftIcon) return undefined;
-    return <Pressable onPress={onClickLeftIcon}>{leftIcon}</Pressable>;
+    return (
+      <TouchableOpacity onPress={onClickLeftIcon}>{leftIcon}</TouchableOpacity>
+    );
   };
 
   const renderRightIcon = () => {
     const { rightIcon, onClickRightIcon } = props;
     if (!rightIcon) return undefined;
+    const style = { marginLeft: theme.padding_xs };
     return (
-      <Pressable onPress={onClickRightIcon} style={{ marginLeft: theme.padding_xs }}>
+      <TouchableOpacity onPress={onClickRightIcon} style={style}>
         {cloneReactNode(rightIcon, {
           size: theme.field_icon_size,
           color: theme.field_right_icon_color,
         })}
-      </Pressable>
+      </TouchableOpacity>
     );
   };
 
   const renderClearIcon = () => {
     if (showClear) {
+      const style = { marginLeft: theme.padding_xs };
       return (
-        <Pressable
+        <TouchableOpacity
           onPress={() => inputRef.current?.clear()}
-          style={{ marginLeft: theme.padding_xs }}
+          style={style}
         >
           {cloneReactNode(clearIcon, {
             size: theme.field_clear_icon_size,
             color: theme.field_clear_icon_color,
           })}
-        </Pressable>
+        </TouchableOpacity>
       );
     }
     return null;
@@ -233,10 +266,12 @@ const Field = forwardRef<FieldInstance, FieldProps>((props, ref) => {
         maxLength={props.maxLength}
         numberOfLines={rows}
         multiline={!!autosize || rows > 1}
-        textAlign={props.inputAlign}
         textContentType={getTextContentType()}
         keyboardType={getKeyboardType()}
-        style={[inputStyles, { height: getHeight() }]}
+        style={[
+          inputStyles,
+          { height: getHeight(), textAlign: props.inputAlign },
+        ]}
         onBlur={handleBulr}
         onFocus={handleFocus}
         onKeyPress={props.onKeyPress}
@@ -250,14 +285,19 @@ const Field = forwardRef<FieldInstance, FieldProps>((props, ref) => {
     const message = props.errorMessage;
 
     if (message) {
-      return <Text style={[styles.errorMessage, { textAlign: errorMessageAlign }]}>{message}</Text>;
+      return (
+        <Text style={[styles.errorMessage, { textAlign: errorMessageAlign }]}>
+          {message}
+        </Text>
+      );
     }
     return null;
   };
 
   const renderButton = () => {
     if (props.button) {
-      return <View style={{ marginLeft: theme.padding_xs }}>{props.button}</View>;
+      const style = { marginLeft: theme.padding_xs };
+      return <View style={style}>{props.button}</View>;
     }
 
     return null;
@@ -265,7 +305,11 @@ const Field = forwardRef<FieldInstance, FieldProps>((props, ref) => {
 
   const renderIntro = () => {
     if (props.intro) {
-      return <Text style={[styles.intro, { textAlign: inputAlign }]}>{props.intro}</Text>;
+      return (
+        <Text style={[styles.intro, { textAlign: inputAlign }]}>
+          {props.intro}
+        </Text>
+      );
     }
     return null;
   };

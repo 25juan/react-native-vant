@@ -50,7 +50,13 @@ export const ActionSheet = memo((props: ActionSheetProps): JSX.Element => {
         />
       ) : (
         <>
-          <Text style={[styles.name, { color: it.color }, it.disabled && styles.disabled]}>
+          <Text
+            style={[
+              styles.name,
+              { color: it.color },
+              it.disabled && styles.disabled,
+            ]}
+          >
             {it.name}
           </Text>
           {!!it.subname && <Text style={styles.subname}>{it.subname}</Text>}

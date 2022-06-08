@@ -1,4 +1,5 @@
-import type { PressableProps } from 'react-native';
+import type { TouchableOpacityProps } from 'react-native';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { ThemeVarType } from './styles';
 
 export type $Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
@@ -27,6 +28,6 @@ type Inline<T, K extends keyof T> = Partial<
 >;
 
 export type InlinePressableProps = Inline<
-  PressableProps,
+  TouchableOpacityProps,
   'onPress' | 'onLongPress' | 'onPressIn' | 'onPressOut'
 >;

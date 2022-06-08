@@ -5,7 +5,10 @@ import { useTheme } from '../Theme';
 import type { TypographyBaseProps } from './type';
 import { getTypeStyle, getSizeStyle, getLevelStyle } from './style';
 
-const Typography = forwardRef<Text, TypographyBaseProps & { renderType: string }>((props, ref) => {
+const Typography = forwardRef<
+  Text,
+  TypographyBaseProps & { renderType: string }
+>((props, ref) => {
   const {
     children,
     style,

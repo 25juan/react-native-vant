@@ -1,6 +1,8 @@
 import type { TouchableOpacityProps as RNTouchableOpacityProps } from 'react-native';
+import type { ReactElement } from 'react';
 
 export interface TouchableOpacityProps extends RNTouchableOpacityProps {
+  children?: ReactElement | Array<ReactElement>;
   // 背景yanse
   backgroundColor?: string;
   // onPress 回调的节流时间，单位 ms

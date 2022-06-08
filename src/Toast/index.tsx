@@ -1,7 +1,13 @@
 import React from 'react';
 
 import BaseToast, { TimoutTimer } from './Toast';
-import type { ToastProps, ToastInstance, ToastOptions, ToastType, ToastReturnType } from './type';
+import type {
+  ToastProps,
+  ToastInstance,
+  ToastOptions,
+  ToastType,
+  ToastReturnType,
+} from './type';
 import { PortalRef } from '../ConfigProvider';
 
 const defaultOptions: ToastProps = {
@@ -19,7 +25,7 @@ let currentKey = 0;
 
 // 清楚所有 toast
 const clearAll = () => {
-  Object.values(toastReturnMap).forEach(it => {
+  Object.values(toastReturnMap).forEach((it) => {
     it.clear();
   });
 };
@@ -29,7 +35,8 @@ const Toast = (opts: ToastProps): ToastReturnType => {
   clearAll();
 
   const key = `toast_${++currentKey}`;
-  const clearTimer = React.createRef<TimoutTimer>() as React.MutableRefObject<TimoutTimer>;
+  const clearTimer =
+    React.createRef<TimoutTimer>() as React.MutableRefObject<TimoutTimer>;
   let options = { ...opts };
 
   const clear = () => {
@@ -45,10 +52,15 @@ const Toast = (opts: ToastProps): ToastReturnType => {
   };
 
   const renderToast = () => (
-    <BaseToast key={key} {...options} onClose={onClose} clearTimer={clearTimer} />
+    <BaseToast
+      key={key}
+      {...options}
+      onClose={onClose}
+      clearTimer={clearTimer}
+    />
   );
 
-  const updateConfig: ToastReturnType['config'] = nextState => {
+  const updateConfig: ToastReturnType['config'] = (nextState) => {
     options =
       typeof nextState === 'function'
         ? { ...options, ...nextState(options) }
@@ -80,7 +92,7 @@ const InternalToast = (opts: ToastProps | string) =>
 
 const toast = InternalToast as ToastInstance;
 
-(['info', 'loading', 'success', 'fail'] as ToastType[]).forEach(method => {
+(['info', 'loading', 'success', 'fail'] as ToastType[]).forEach((method) => {
   toast[method] = (opts: ToastOptions) =>
     Toast({
       ...parseOptions(opts),
@@ -88,7 +100,10 @@ const toast = InternalToast as ToastInstance;
     });
 });
 
-toast.setDefaultOptions = (type: ToastType | ToastProps, options?: ToastProps) => {
+toast.setDefaultOptions = (
+  type: ToastType | ToastProps,
+  options?: ToastProps
+) => {
   if (typeof type === 'string' && options) {
     defaultOptionsMap.set(type, options);
   } else {

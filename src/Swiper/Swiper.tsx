@@ -48,7 +48,9 @@ const Swiper = forwardRef<SwiperInstance, SwiperProps>((props, ref) => {
       autoplayTimeout={isNumber(autoplay) ? autoplay / 1000 : 2.5}
       pagingEnabled={touchable}
       renderPagination={
-        isFunction(indicator) ? (idx: number, total: number) => indicator(total, idx) : undefined
+        isFunction(indicator)
+          ? (idx: number, total: number) => indicator(total, idx)
+          : undefined
       }
       dot={<View style={styles.dot} />}
       activeDot={<View style={styles.activeDot} />}

@@ -3,7 +3,10 @@ import type { ImageProps } from './interface';
 
 type ExtraProps = Pick<ImageProps, 'round' | 'radius'>;
 
-const createStyles = (themeVar: DiceUI.Theme, { round, radius }: ExtraProps) => {
+const createStyles = (
+  themeVar: DiceUI.Theme,
+  { round, radius }: ExtraProps
+) => {
   return StyleSheet.create({
     errorIcon: {
       color: themeVar.image_error_icon_color,

@@ -1,7 +1,12 @@
 import React, { forwardRef } from 'react';
-import { View, Text, TouchableOpacity as RNTouchableOpacity } from 'react-native';
-import isFunction from 'lodash-es/isFunction';
+import {
+  Text,
+  TouchableOpacity as RNTouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { useMemoizedFn } from '../hooks';
+import isFunction from 'lodash-es/isFunction';
 import { useThemeFactory } from '../Theme';
 import Icon from '../Icon';
 import TouchableOpacity from '../TouchableOpacity';
@@ -33,54 +38,61 @@ const Cell = forwardRef<RNTouchableOpacity, CellProps>((props, ref) => {
 
     if (React.isValidElement(icon)) {
       iconComponent = React.cloneElement(icon, {
+        // @ts-ignore
         size: theme.cell_icon_size,
         color: theme.cell_text_color,
       });
     } else if (icon) {
       iconComponent = (
-        <Icon name={icon} size={theme.cell_icon_size} color={theme.cell_text_color} />
+        <Icon
+          name={icon}
+          size={theme.cell_icon_size}
+          color={theme.cell_text_color}
+        />
       );
     }
 
     if (iconComponent) {
-      return <View style={[styles.icon, { marginRight: 4 }]}>{iconComponent}</View>;
+      const iconStyle = { marginRight: 4 };
+      return <View style={[styles.icon, iconStyle]}>{iconComponent}</View>;
     }
-
-    return null;
+    return <></>;
   };
 
   const renderTitle = () => {
     if (title) {
-      const titleStyles = [styles.title, isLarge && styles.titleLarge, titleStyle];
+      const titleStyles = [
+        styles.title,
+        isLarge && styles.titleLarge,
+        titleStyle,
+      ];
+      const boxStyle: ViewStyle = { position: 'relative' };
       return (
-        <View style={{ position: 'relative' }}>
+        <View style={boxStyle}>
           {!!props.required && <Text style={styles.required}>*</Text>}
-          {isFunction(title) ? title(titleStyles) : <Text style={titleStyles}>{title}</Text>}
+          {isFunction(title) ? (
+            title(titleStyles)
+          ) : (
+            <Text style={titleStyles}>{title}</Text>
+          )}
           {label && (
-            <Text style={[styles.label, isLarge && styles.larbelLarge, labelStyle]}>{label}</Text>
+            <Text
+              style={[styles.label, isLarge && styles.larbelLarge, labelStyle]}
+            >
+              {label}
+            </Text>
           )}
         </View>
       );
     }
-    return null;
+    return <></>;
   };
-
-  const renderValue = useMemoizedFn(() => {
-    const hasValue = !!children || !!value;
-
-    if (React.isValidElement(children) || React.isValidElement(value)) {
-      return children || value;
-    }
-    if (hasValue) {
-      return <Text style={[styles.value, valueStyle]}>{children ?? value}</Text>;
-    }
-    return null;
-  });
 
   const renderRightIcon = () => {
     if (isLink) {
+      const iconStyle = { marginLeft: 4 };
       return (
-        <View style={[styles.icon, { marginLeft: 4 }]}>
+        <View style={[styles.icon, iconStyle]}>
           <Icon
             name={directionIcons[arrowDirection]}
             size={theme.cell_icon_size}
@@ -89,9 +101,24 @@ const Cell = forwardRef<RNTouchableOpacity, CellProps>((props, ref) => {
         </View>
       );
     }
-    return null;
+    return <></>;
   };
+  const renderValue = useMemoizedFn(() => {
+    const hasValue = !!children || !!value;
 
+    if (React.isValidElement(children) || React.isValidElement(value)) {
+      return (children || value) as React.ReactElement;
+    }
+    if (hasValue) {
+      return (
+        <Text style={[styles.value, valueStyle]}>{children ?? value}</Text>
+      );
+    }
+    return <></>;
+  });
+  const touchableOpacityStyle: ViewStyle = center
+    ? { alignItems: 'center' }
+    : { alignItems: 'flex-start' };
   return (
     <TouchableOpacity
       ref={ref}
@@ -101,7 +128,7 @@ const Cell = forwardRef<RNTouchableOpacity, CellProps>((props, ref) => {
         styles.wrapper,
         isLarge && styles.wrapperLarge,
         style,
-        center ? { alignItems: 'center' } : { alignItems: 'flex-start' },
+        touchableOpacityStyle,
       ]}
     >
       {renderLeftIcon()}

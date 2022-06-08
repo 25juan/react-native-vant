@@ -35,41 +35,34 @@ const Circular: FC<Props> = memo(({ color, size }) => {
         easing: Easing.linear,
       })
     ).start();
-  }, []);
+  }, [rotate, strokeDash]);
 
   useEffect(() => {
     startRotation();
-  }, []);
-
+  }, [startRotation]);
+  const style1 = {
+    transform: [
+      {
+        rotate: rotate.interpolate({
+          inputRange: [0, 1],
+          outputRange: ['0deg', '270deg'],
+        }),
+      },
+    ],
+  };
+  const style2 = {
+    transform: [
+      {
+        rotate: strokeDash.interpolate({
+          inputRange: [0, 50, 100],
+          outputRange: ['0deg', '135deg', '450deg'],
+        }),
+      },
+    ],
+  };
   return (
-    <Animated.View
-      collapsable={false}
-      style={{
-        transform: [
-          {
-            rotate: rotate.interpolate({
-              inputRange: [0, 1],
-              outputRange: ['0deg', '270deg'],
-            }),
-          },
-        ],
-      }}
-    >
-      <AnimateSvg
-        viewBox="0 0 66 66"
-        width={size}
-        height={size}
-        style={{
-          transform: [
-            {
-              rotate: strokeDash.interpolate({
-                inputRange: [0, 50, 100],
-                outputRange: ['0deg', '135deg', '450deg'],
-              }),
-            },
-          ],
-        }}
-      >
+    <Animated.View collapsable={false} style={style1}>
+      <AnimateSvg viewBox="0 0 66 66" width={size} height={size} style={style2}>
         <AnimateCircle
           cx="33"
           cy="33"

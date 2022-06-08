@@ -1,7 +1,9 @@
 import React, { forwardRef, useState } from 'react';
 import { View, Animated } from 'react-native';
 import type { LayoutChangeEvent } from 'react-native';
-import MultiSlider, { MarkerProps } from '@ptomasroos/react-native-multi-slider';
+import MultiSlider, {
+  MarkerProps,
+} from '@ptomasroos/react-native-multi-slider';
 
 import { range, addNumber } from '../utils/number';
 import { useUpdateEffect, useMemoizedFn } from '../hooks';
@@ -27,7 +29,8 @@ const Slider = forwardRef<View, SliderProps>((props, ref) => {
     vertical,
   } = props;
 
-  const isRange = (val: unknown): val is [number, number] => !!(props.range && Array.isArray(val));
+  const isRange = (val: unknown): val is [number, number] =>
+    !!(props.range && Array.isArray(val));
   const format = (val: number) => {
     const rangeVal = range(val, min, max);
     const diff = Math.round((rangeVal - min) / step) * step;
@@ -49,9 +52,12 @@ const Slider = forwardRef<View, SliderProps>((props, ref) => {
   };
 
   const [sliderWidth, setSliderWidth] = useState<number>();
-  const [multiValue, setMultiValue] = useState<number[]>(() => initializeValue(props.value));
+  const [multiValue, setMultiValue] = useState<number[]>(() =>
+    initializeValue(props.value)
+  );
 
-  const isMarkersSeparated = React.isValidElement(leftButton) && React.isValidElement(rightButton);
+  const isMarkersSeparated =
+    React.isValidElement(leftButton) && React.isValidElement(rightButton);
 
   useUpdateEffect(() => {
     const iValue = initializeValue(props.value);

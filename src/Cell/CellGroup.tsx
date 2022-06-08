@@ -20,7 +20,11 @@ const CellGroup = forwardRef<View, CellGroupProps>((props, ref) => {
 
   return (
     <View ref={ref} {...rest}>
-      {title && <Text style={[styles.title, inset ? styles.titleInset : undefined]}>{title}</Text>}
+      {title && (
+        <Text style={[styles.title, inset ? styles.titleInset : undefined]}>
+          {title}
+        </Text>
+      )}
       <View
         style={[
           styles.wrapper,

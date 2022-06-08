@@ -7,7 +7,7 @@ import Loading from '../Loading';
 import createStyle from './style';
 import type { ButtonProps } from './type';
 
-const Button: FC<ButtonProps> = memo(props => {
+const Button: FC<ButtonProps> = memo((props) => {
   const {
     type = 'default',
     size = 'normal',
@@ -46,7 +46,11 @@ const Button: FC<ButtonProps> = memo(props => {
       <>
         {icon && loading !== true && (
           <View style={marginStyles}>
-            {isIcon(icon) ? <Icon name={icon} size={defaultIconSize} color={iconColor} /> : icon}
+            {isIcon(icon) ? (
+              <Icon name={icon} size={defaultIconSize} color={iconColor} />
+            ) : (
+              icon
+            )}
           </View>
         )}
         {loading && (
@@ -71,8 +75,7 @@ const Button: FC<ButtonProps> = memo(props => {
         </Text>
       );
     }
-
-    return null;
+    return <></>;
   };
 
   return (
@@ -91,9 +94,9 @@ const Button: FC<ButtonProps> = memo(props => {
         !!color && !plain && { backgroundColor: color },
       ]}
     >
-      {iconPosition === 'left' && renderIcon()}
+      {iconPosition === 'left' ? renderIcon() : <></>}
       {renderText()}
-      {iconPosition === 'right' && renderIcon()}
+      {iconPosition === 'right' ? renderIcon() : <></>}
     </TouchableOpacity>
   );
 });

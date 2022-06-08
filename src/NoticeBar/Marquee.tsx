@@ -1,5 +1,17 @@
-import React, { useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
-import { View, Animated, Text, Platform, Easing, StyleSheet } from 'react-native';
+import React, {
+  useRef,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
+import {
+  View,
+  Animated,
+  Text,
+  Platform,
+  Easing,
+  StyleSheet,
+} from 'react-native';
 import type { StyleProp, TextStyle, LayoutChangeEvent } from 'react-native';
 import type { NoticeBarProps, NoticeBarInstance } from './interface';
 
@@ -13,7 +25,15 @@ type MarqueeProps = Pick<
 const isWeb = Platform.OS === 'web';
 
 const Marquee = forwardRef<NoticeBarInstance, MarqueeProps>((props, ref) => {
-  const { scrollable = false, speed = 60, delay = 1000, style, text, wrapable, onReplay } = props;
+  const {
+    scrollable = false,
+    speed = 60,
+    delay = 1000,
+    style,
+    text,
+    wrapable,
+    onReplay,
+  } = props;
 
   // 内容的 translateX 值
   const translateX = useRef(new Animated.Value(0)).current;
@@ -87,7 +107,7 @@ const Marquee = forwardRef<NoticeBarInstance, MarqueeProps>((props, ref) => {
 
   useEffect(() => {
     reset();
-  }, [text, scrollable, wrapable]);
+  }, [text, scrollable, wrapable, reset]);
 
   useImperativeHandle(ref, () => ({ reset }));
 

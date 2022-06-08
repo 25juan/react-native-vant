@@ -15,7 +15,8 @@ import { useTheme } from '../Theme';
 
 const ANDROID_VERSION_LOLLIPOP = 21;
 const ANDROID_VERSION_PIE = 28;
-const SUPPORTED = Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_LOLLIPOP;
+const SUPPORTED =
+  Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_LOLLIPOP;
 
 type Props = React.ComponentProps<typeof TouchableWithoutFeedback> & {
   borderless?: boolean;
@@ -50,7 +51,9 @@ const TouchableRipple: FC<Props> = ({
   // A workaround for ripple on Android P is to use useForeground + overflow: 'hidden'
   // https://github.com/facebook/react-native/issues/6480
   const useForeground =
-    Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_PIE && borderless;
+    Platform.OS === 'android' &&
+    Platform.Version >= ANDROID_VERSION_PIE &&
+    borderless;
 
   if (SUPPORTED) {
     return (

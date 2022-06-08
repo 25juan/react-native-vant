@@ -6,7 +6,7 @@ import { useThemeFactory } from '../Theme';
 import type { ActionBarIconProps } from './type';
 import { createIconStyle } from './style';
 
-const ActionBarIcon: React.FC<ActionBarIconProps> = props => {
+const ActionBarIcon: React.FC<ActionBarIconProps> = (props) => {
   const { styles, theme } = useThemeFactory(createIconStyle);
   const { badge, icon } = props;
 

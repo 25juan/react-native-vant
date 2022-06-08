@@ -15,7 +15,9 @@ interface Styles {
   wordLimit: TextStyle;
 }
 
-export const createStyle = (theme: DiceUI.Theme): StyleSheet.NamedStyles<Styles> => {
+export const createStyle = (
+  theme: DiceUI.Theme
+): StyleSheet.NamedStyles<Styles> => {
   return StyleSheet.create<Styles>({
     body: {
       alignItems: 'center',

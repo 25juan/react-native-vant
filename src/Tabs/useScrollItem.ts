@@ -26,13 +26,20 @@ interface ScrollItemResultProps<T extends ScrollToSupportedViews> {
 }
 
 const getInitial = (count: number) =>
-  times(count, () => ({ containerWidth: 0, containerLeft: 0, left: 0, width: 0 }));
+  times(count, () => ({
+    containerWidth: 0,
+    containerLeft: 0,
+    left: 0,
+    width: 0,
+  }));
 
 const useScrollItem = <T extends ScrollToSupportedViews>(
   props: ScrollItemProps
 ): ScrollItemResultProps<T> => {
   const { itemsCount } = props;
-  const [itemsLayout, setItemsLayout] = useState<ItemLayout[]>(getInitial(itemsCount));
+  const [itemsLayout, setItemsLayout] = useState<ItemLayout[]>(
+    getInitial(itemsCount)
+  );
   const scrollViewRef = useRef<T>(null);
   const itemsLayoutRef = useRef<ItemLayout[]>(getInitial(itemsCount));
   const itemsRenders = useRef<number>(0);
@@ -68,7 +75,10 @@ const useScrollItem = <T extends ScrollToSupportedViews>(
   const onItemContainerLayout = useCallback(
     (event: LayoutChangeEvent, index: number) => {
       const { layout } = event.nativeEvent;
-      setSnapBreakpoints({ containerLeft: layout.x, containerWidth: layout.width }, index);
+      setSnapBreakpoints(
+        { containerLeft: layout.x, containerWidth: layout.width },
+        index
+      );
     },
     [setSnapBreakpoints]
   );
@@ -90,7 +100,7 @@ const useScrollItem = <T extends ScrollToSupportedViews>(
     } else {
       scrollTo(targetOffset - containerCenter, animated);
     }
-  }, []);
+  }, [scrollTo]);
 
   return {
     scrollViewRef,

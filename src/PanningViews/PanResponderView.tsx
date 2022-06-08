@@ -9,11 +9,20 @@ export interface PanResponderViewProps extends Omit<ViewProps, 'style'> {
   onPanLocationChanged?: (location: PanLocationProps) => void;
   ignorePanning?: boolean;
   isAnimated?: boolean;
+
   style?: StyleProp<ViewStyle | Animated.AnimatedProps<ViewStyle>>;
 }
 
-const PanResponderView = (props: PanResponderViewProps): JSX.Element => {
-  const { ignorePanning, children, isAnimated = false, onPanLocationChanged, ...others } = props;
+const PanResponderView: React.FC<PanResponderViewProps> = (
+  props
+): JSX.Element => {
+  const {
+    ignorePanning,
+    children,
+    isAnimated = false,
+    onPanLocationChanged,
+    ...others
+  } = props;
   const context = useContext(PanningContext);
   const containerRef = useRef<View>();
   const left = useRef<number>();
@@ -29,7 +38,8 @@ const PanResponderView = (props: PanResponderViewProps): JSX.Element => {
       if (
         isPanning &&
         (dragDeltas.x || dragDeltas.y) &&
-        (dragDeltas.x !== prevDragDeltas.current.x || dragDeltas.y !== prevDragDeltas.current.y)
+        (dragDeltas.x !== prevDragDeltas.current.x ||
+          dragDeltas.y !== prevDragDeltas.current.y)
       ) {
         onDrag(dragDeltas);
       }
@@ -61,7 +71,9 @@ const PanResponderView = (props: PanResponderViewProps): JSX.Element => {
 
   const setNativeProps = (_left: number, _top: number) => {
     if (containerRef.current) {
-      containerRef.current.setNativeProps({ style: { left: _left, top: _top } });
+      containerRef.current.setNativeProps({
+        style: { left: _left, top: _top },
+      });
       left.current = _left;
       top.current = _top;
     }
@@ -80,4 +92,4 @@ const PanResponderView = (props: PanResponderViewProps): JSX.Element => {
 
 PanResponderView.displayName = 'PanResponderView';
 
-export default memo(PanResponderView);
+export default memo<React.FC<PanResponderViewProps>>(PanResponderView);

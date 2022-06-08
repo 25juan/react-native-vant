@@ -12,7 +12,9 @@ type InternalProps = {
   index?: number;
 };
 
-const GridItem = (props: GridItemProps & InternalProps): JSX.Element => {
+const GridItem: React.FC<GridItemProps & InternalProps> = (
+  props
+): JSX.Element => {
   const { parent = {} } = props;
   const { styles, theme } = useThemeFactory(createItemStyle, parent, props);
   const {
@@ -27,7 +29,12 @@ const GridItem = (props: GridItemProps & InternalProps): JSX.Element => {
     onPress,
     ...rest
   } = props;
-  const { square, gutter, columnNum = 4, iconSize = theme.grid_item_item_icon_size } = parent;
+  const {
+    square,
+    gutter,
+    columnNum = 4,
+    iconSize = theme.grid_item_item_icon_size,
+  } = parent;
 
   if (!parent) {
     devWarning('GridItem', 'must be a child component of <Grid>.');
@@ -47,7 +54,7 @@ const GridItem = (props: GridItemProps & InternalProps): JSX.Element => {
       }
     }
     return internalStyle;
-  }, [columnNum]);
+  }, [columnNum, gutter, index, square]);
 
   const newContentStyle = useMemo(() => {
     if (square && gutter) {
@@ -59,7 +66,7 @@ const GridItem = (props: GridItemProps & InternalProps): JSX.Element => {
       };
     }
     return contentStyle;
-  }, [gutter, columnNum, contentStyle]);
+  }, [square, gutter, contentStyle]);
 
   const renderIcon = () => {
     if (!icon) return null;
@@ -83,7 +90,7 @@ const GridItem = (props: GridItemProps & InternalProps): JSX.Element => {
   };
 
   const renderContent = () => {
-    if (children) return children;
+    if (children) return <>{children}</>;
 
     return (
       <>
@@ -94,7 +101,10 @@ const GridItem = (props: GridItemProps & InternalProps): JSX.Element => {
   };
 
   return (
-    <View style={[styles.item, style, rootStyle, !!square && styles.square]} {...rest}>
+    <View
+      style={[styles.item, style, rootStyle, !!square && styles.square]}
+      {...rest}
+    >
       <TouchableOpacity
         disabled={!onPress}
         activeBackgroundColor={theme.grid_item_content_active_color}

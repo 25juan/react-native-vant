@@ -2,7 +2,12 @@ import React from 'react';
 import isString from 'lodash-es/isString';
 import { View, Image, Text } from 'react-native';
 import { useThemeFactory } from '../Theme';
-import { renderError, renderSearch, renderNetwork, renderMaterial } from './Images';
+import {
+  renderError,
+  renderSearch,
+  renderNetwork,
+  renderMaterial,
+} from './Images';
 import type { EmptyProps } from './type';
 import { createStyle } from './style';
 
@@ -13,8 +18,15 @@ const PRESET_IMAGES: Record<string, () => JSX.Element> = {
   default: renderMaterial,
 };
 
-const Empty = (props: EmptyProps): JSX.Element => {
-  const { image = 'default', imageSize, description, style, children, ...rest } = props;
+const Empty: React.FC<EmptyProps> = (props): JSX.Element => {
+  const {
+    image = 'default',
+    imageSize,
+    description,
+    style,
+    children,
+    ...rest
+  } = props;
   const { styles, theme } = useThemeFactory(createStyle);
   const size = imageSize ?? theme.empty_image_size;
   const imageStyle = { width: size, height: size };
@@ -27,7 +39,8 @@ const Empty = (props: EmptyProps): JSX.Element => {
       return image;
     }
     if (isString(image)) {
-      return <Image source={{ uri: image }} style={imageStyle} />;
+      const source = { uri: image };
+      return <Image source={source} style={imageStyle} />;
     }
     return null;
   };

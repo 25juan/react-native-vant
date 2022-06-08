@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native';
 import type { ViewStyle, StyleProp } from 'react-native';
 import type { DashProps } from './interface';
 
-type Params = Required<Pick<DashProps, 'dashGap' | 'dashLength' | 'dashThickness' | 'dashColor'>> &
+type Params = Required<
+  Pick<DashProps, 'dashGap' | 'dashLength' | 'dashThickness' | 'dashColor'>
+> &
   Pick<DashProps, 'style'>;
 
 /**
@@ -20,7 +22,9 @@ const getDashStyleId = (
   { dashGap, dashLength, dashThickness, dashColor }: Params,
   isRow: boolean
 ) =>
-  `${dashGap}-${dashLength}-${dashThickness}-${dashColor.toString()}-${isRow ? 'row' : 'column'}`;
+  `${dashGap}-${dashLength}-${dashThickness}-${dashColor.toString()}-${
+    isRow ? 'row' : 'column'
+  }`;
 
 const createDashStyleSheet = (
   { dashGap, dashLength, dashThickness, dashColor }: Params,
@@ -43,7 +47,9 @@ const createDashStyleSheet = (
  */
 let stylesStore: Record<string, ReturnType<typeof createDashStyleSheet>> = {};
 
-export const getDashStyle = (props: Params): ReturnType<typeof createDashStyleSheet> => {
+export const getDashStyle = (
+  props: Params
+): ReturnType<typeof createDashStyleSheet> => {
   const isRow = isStyleRow(props.style);
   const id = getDashStyleId(props, isRow);
 

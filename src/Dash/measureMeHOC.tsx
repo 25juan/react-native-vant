@@ -13,8 +13,10 @@ export type MeasureMeState = {
 };
 
 const measureMeHOC =
-  <P extends ViewProps>(ComposedComponent: React.ComponentType<P & MeasureMeState>): React.FC<P> =>
-  props => {
+  <P extends ViewProps>(
+    ComposedComponent: React.ComponentType<P & MeasureMeState>
+  ): React.FC<P> =>
+  (props) => {
     const [state, setState] = useState<MeasureMeState>();
 
     const handleLayout: ViewProps['onLayout'] = ({

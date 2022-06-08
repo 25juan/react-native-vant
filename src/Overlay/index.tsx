@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Modal, Pressable, Animated } from 'react-native';
+import { Modal, TouchableOpacity, Animated } from 'react-native';
 import Fade from '../Transitions/Fade';
 import { Portal } from '../Portal';
 import { useMemoizedFn } from '../hooks';
@@ -7,7 +7,8 @@ import { useThemeFactory } from '../Theme';
 import { createStyle } from './style';
 import type { OverlayProps } from './type';
 
-const PressableAnimated = Animated.createAnimatedComponent(Pressable);
+const TouchableOpacityAnimated =
+  Animated.createAnimatedComponent(TouchableOpacity);
 
 const Overlay = (props: OverlayProps): JSX.Element => {
   const { children, visible = false, duration = 300 } = props;
@@ -39,13 +40,17 @@ const Overlay = (props: OverlayProps): JSX.Element => {
       handleClosed();
     });
     return () => timingEvent.stop();
-  }, [visible]);
+  }, [animateFading, handleClosed, visible]);
 
   const renderContent = () => (
     <>
       {!props.transparent && (
-        <PressableAnimated
-          style={[styles.backdrop, { opacity: fadeAnimation.current }, props.backdropStyle]}
+        <TouchableOpacityAnimated
+          style={[
+            styles.backdrop,
+            { opacity: fadeAnimation.current },
+            props.backdropStyle,
+          ]}
           onPress={handleClose}
         />
       )}

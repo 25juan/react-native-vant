@@ -7,7 +7,8 @@ const createStyle = (theme: DiceUI.Theme, size?: number) => {
   const unitSize = size || theme.switch_size;
   const switchWidth = unitSize * theme.switch_width_ratio;
   const switchHeight = unitSize * theme.switch_height_ratio;
-  const nodeSize = unitSize * theme.switch_node_size_ratio - theme.switch_border_width * 2;
+  const nodeSize =
+    unitSize * theme.switch_node_size_ratio - theme.switch_border_width * 2;
 
   return StyleSheet.create({
     disabled: {

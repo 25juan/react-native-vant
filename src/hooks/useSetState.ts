@@ -6,8 +6,11 @@ const useSetState = <T extends Record<string, any>>(
 ): [T, (patch: Partial<T> | ((prevState: T) => Partial<T>)) => void] => {
   const [state, setState] = useState<T>(initialState);
 
-  const setMergeState = useCallback(patch => {
-    setState(prevState => ({ ...prevState, ...(isFunction(patch) ? patch(prevState) : patch) }));
+  const setMergeState = useCallback((patch) => {
+    setState((prevState) => ({
+      ...prevState,
+      ...(isFunction(patch) ? patch(prevState) : patch),
+    }));
   }, []);
 
   return [state, setMergeState];

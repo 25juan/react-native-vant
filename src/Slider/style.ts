@@ -13,11 +13,17 @@ interface Styles {
   track: ViewStyle;
 }
 
-export const createStyle = (theme: DiceUI.Theme, params: ExtraParams): Styles => {
-  const { inactiveColor, activeColor, buttonSize, disabled, barHeight } = params;
+export const createStyle = (
+  theme: DiceUI.Theme,
+  params: ExtraParams
+): Styles => {
+  const { inactiveColor, activeColor, buttonSize, disabled, barHeight } =
+    params;
 
-  const activeBackgroundColor = activeColor ?? theme.slider_active_background_color;
-  const inactiveBackgroundColor = inactiveColor ?? theme.slider_inactive_background_color;
+  const activeBackgroundColor =
+    activeColor ?? theme.slider_active_background_color;
+  const inactiveBackgroundColor =
+    inactiveColor ?? theme.slider_inactive_background_color;
 
   const buttonWidth = buttonSize ?? theme.slider_button_width;
   const buttonHeight = buttonSize ?? theme.slider_button_height;

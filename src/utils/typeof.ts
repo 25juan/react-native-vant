@@ -1,7 +1,17 @@
 import { default as isStr } from './isString';
 
 const isType =
-  (t: 'Array' | 'Object' | 'Function' | 'String' | 'Number' | 'Null' | 'Undefined') => (v: any) =>
+  (
+    t:
+      | 'Array'
+      | 'Object'
+      | 'Function'
+      | 'String'
+      | 'Number'
+      | 'Null'
+      | 'Undefined'
+  ) =>
+  (v: any) =>
     Object.prototype.toString.call(v) === `[object ${t}]`;
 
 /** 已经声明/定义的数据 */
@@ -30,7 +40,9 @@ export const isPromise = <T = any>(val: any): val is Promise<T> => {
 export function isMobile(value: string): boolean {
   // eslint-disable-next-line no-param-reassign
   value = value.replace(/[^-|\d]/g, '');
-  return /^((\+86)|(86))?(1)\d{10}$/.test(value) || /^0[0-9-]{10,13}$/.test(value);
+  return (
+    /^((\+86)|(86))?(1)\d{10}$/.test(value) || /^0[0-9-]{10,13}$/.test(value)
+  );
 }
 
 /** 是空 */

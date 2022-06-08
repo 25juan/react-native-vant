@@ -20,5 +20,7 @@ const getShortHand = (style: 'padding' | 'margin', ...values: any[]) => {
 /**
  * 简写 padding 和 margin
  */
-export const padding = (...values: Array<number | string>) => getShortHand('padding', ...values);
-export const margin = (...values: Array<number | string>) => getShortHand('margin', ...values);
+export const padding = (...values: Array<number | string>) =>
+  getShortHand('padding', ...values);
+export const margin = (...values: Array<number | string>) =>
+  getShortHand('margin', ...values);

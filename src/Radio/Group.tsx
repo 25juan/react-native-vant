@@ -48,7 +48,7 @@ const RadioGroup = React.forwardRef<View, RadioGroupProps>((props, ref) => {
   let { children } = props;
 
   const getOptions = () =>
-    options.map(option => {
+    options.map((option) => {
       if (typeof option === 'string') {
         return {
           label: option,
@@ -64,7 +64,7 @@ const RadioGroup = React.forwardRef<View, RadioGroupProps>((props, ref) => {
   };
 
   if (options && options.length > 0) {
-    children = getOptions().map(option => (
+    children = getOptions().map((option) => (
       <Radio
         key={option.value.toString()}
         disabled={'disabled' in option ? option.disabled : restProps.disabled}
@@ -79,7 +79,13 @@ const RadioGroup = React.forwardRef<View, RadioGroupProps>((props, ref) => {
   }
 
   return (
-    <View ref={ref} style={[{ flexDirection: direction === 'vertical' ? 'column' : 'row' }, style]}>
+    <View
+      ref={ref}
+      style={[
+        { flexDirection: direction === 'vertical' ? 'column' : 'row' },
+        style,
+      ]}
+    >
       <GroupContext.Provider
         value={{
           toggleOption,

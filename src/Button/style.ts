@@ -17,7 +17,10 @@ type Styles = {
   text: TextStyle;
 };
 
-const createStyle = (theme: DiceUI.Theme, { type, size, plain }: Params): Styles => {
+const createStyle = (
+  theme: DiceUI.Theme,
+  { type, size, plain }: Params
+): Styles => {
   const buttonTypeStyleMaps: Record<ButtonType, ViewStyle> = {
     default: {
       backgroundColor: theme.button_default_background_color,
@@ -98,16 +101,24 @@ const createStyle = (theme: DiceUI.Theme, { type, size, plain }: Params): Styles
       color: theme.button_default_color,
     },
     danger: {
-      color: plain ? theme.button_danger_background_color : theme.button_danger_color,
+      color: plain
+        ? theme.button_danger_background_color
+        : theme.button_danger_color,
     },
     primary: {
-      color: plain ? theme.button_primary_background_color : theme.button_primary_color,
+      color: plain
+        ? theme.button_primary_background_color
+        : theme.button_primary_color,
     },
     success: {
-      color: plain ? theme.button_success_background_color : theme.button_success_color,
+      color: plain
+        ? theme.button_success_background_color
+        : theme.button_success_color,
     },
     warning: {
-      color: plain ? theme.button_warning_background_color : theme.button_warning_color,
+      color: plain
+        ? theme.button_warning_background_color
+        : theme.button_warning_color,
     },
   };
 

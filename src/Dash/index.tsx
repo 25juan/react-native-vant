@@ -8,8 +8,14 @@ import type { DashProps } from './interface';
 import { getDashStyle, isStyleRow } from './util';
 import measureMeHOC, { MeasureMeState } from './measureMeHOC';
 
-const Dash: FC<DashProps & MeasureMeState> = props => {
-  const { dashGap = 2, dashLength = 4, dashThickness = 1, dashColor = 'black', style } = props;
+const Dash: FC<DashProps & MeasureMeState> = (props) => {
+  const {
+    dashGap = 2,
+    dashLength = 4,
+    dashThickness = 1,
+    dashColor = 'black',
+    style,
+  } = props;
 
   const isRow = isStyleRow(props.style);
   const length = isRow ? props.width : props.height;
@@ -28,7 +34,10 @@ const Dash: FC<DashProps & MeasureMeState> = props => {
   }
 
   return (
-    <View onLayout={props.onLayout} style={[props.style, isRow ? styles.row : styles.column]}>
+    <View
+      onLayout={props.onLayout}
+      style={[props.style, isRow ? styles.row : styles.column]}
+    >
       {dash}
     </View>
   );

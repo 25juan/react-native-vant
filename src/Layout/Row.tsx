@@ -2,7 +2,12 @@ import React, { FC, useMemo } from 'react';
 import { View, ViewStyle, FlexStyle } from 'react-native';
 import RowContext from './RowContext';
 
-type JustifyType = 'start' | 'end' | 'center' | 'space-around' | 'space-between';
+type JustifyType =
+  | 'start'
+  | 'end'
+  | 'center'
+  | 'space-around'
+  | 'space-between';
 type AlignType = 'top' | 'center' | 'bottom';
 
 interface Props {
@@ -32,9 +37,9 @@ interface Props {
 }
 
 const justifyMaps: Record<JustifyType, FlexStyle['justifyContent']> = {
-  start: 'flex-start',
-  end: 'flex-end',
-  center: 'center',
+  'start': 'flex-start',
+  'end': 'flex-end',
+  'center': 'center',
   'space-around': 'space-around',
   'space-between': 'space-between',
 };
@@ -59,13 +64,21 @@ const LayoutRow: FC<Props> = ({
 
   const rowContext = useMemo(() => ({ gutter }), [gutter]);
 
-  const rowStyle: ViewStyle = gutter ? { marginLeft: gutter / -2, marginRight: gutter / -2 } : {};
+  const rowStyle: ViewStyle = gutter
+    ? { marginLeft: gutter / -2, marginRight: gutter / -2 }
+    : {};
 
   return (
     <RowContext.Provider value={rowContext}>
       <View
         style={[
-          { display: 'flex', flexDirection: 'row', justifyContent, alignItems, flexWrap },
+          {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent,
+            alignItems,
+            flexWrap,
+          },
           rowStyle,
           style,
         ]}

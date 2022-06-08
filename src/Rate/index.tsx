@@ -1,5 +1,5 @@
 import React, { forwardRef, useMemo, useRef } from 'react';
-import { View, Pressable, PanResponder } from 'react-native';
+import { View, TouchableOpacity, PanResponder } from 'react-native';
 import type { GestureResponderEvent, LayoutChangeEvent } from 'react-native';
 import { useThemeFactory } from '../Theme';
 import Icon from '../Icon';
@@ -76,7 +76,7 @@ const Rate = forwardRef<View, RateProps>((props, ref) => {
     return Array(count)
       .fill('')
       .map((_, i) => getRateStatus(value, i + 1, allowHalf, readonly));
-  }, [value, count]);
+  }, [count, value, allowHalf, readonly]);
 
   const renderStar = (item: RateListItem, index: number) => {
     const isFull = item.status === 'full';
@@ -101,7 +101,7 @@ const Rate = forwardRef<View, RateProps>((props, ref) => {
     };
 
     return (
-      <Pressable
+      <TouchableOpacity
         key={index}
         style={[styles.item, index > 0 ? { marginLeft: gutter } : undefined]}
         onPress={onClickItem}
@@ -122,7 +122,7 @@ const Rate = forwardRef<View, RateProps>((props, ref) => {
             />
           </View>
         )}
-      </Pressable>
+      </TouchableOpacity>
     );
   };
 

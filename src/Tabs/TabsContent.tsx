@@ -3,12 +3,15 @@ import { View } from 'react-native';
 import Swiper, { SwiperInstance } from '../Swiper';
 import type { TabsProps } from './type';
 
-export type TabsContentProps = Pick<TabsProps, 'animated' | 'swipeable' | 'duration'> & {
+export type TabsContentProps = Pick<
+  TabsProps,
+  'animated' | 'swipeable' | 'duration'
+> & {
   onChange?: (index: number) => void;
   currentIndex: number;
 };
 
-const TabsContent: React.FC<TabsContentProps> = props => {
+const TabsContent: React.FC<TabsContentProps> = (props) => {
   const { children, animated, swipeable, duration } = props;
   const innerEffect = useRef(false);
   const swiperRef = useRef<SwiperInstance>(null);
@@ -23,7 +26,7 @@ const TabsContent: React.FC<TabsContentProps> = props => {
           touchable={!!swipeable}
           duration={duration}
           indicator={false}
-          onChange={idx => {
+          onChange={(idx) => {
             if (innerEffect.current) {
               innerEffect.current = false;
               return;
@@ -31,7 +34,7 @@ const TabsContent: React.FC<TabsContentProps> = props => {
             if (props.onChange) props.onChange(idx);
           }}
         >
-          {React.Children.map(children, child => (
+          {React.Children.map(children, (child) => (
             <Swiper.Item>{child}</Swiper.Item>
           ))}
         </Swiper>

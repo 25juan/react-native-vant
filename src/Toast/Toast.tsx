@@ -13,9 +13,9 @@ const windowHeight = Dimensions.get('window').height;
 
 export type TimoutTimer = ReturnType<typeof setTimeout>;
 
-const Toast = (
-  props: ToastProps & { clearTimer: React.MutableRefObject<TimoutTimer> }
-): JSX.Element => {
+const Toast: React.FC<
+  ToastProps & { clearTimer: React.MutableRefObject<TimoutTimer> }
+> = (props): JSX.Element => {
   const {
     position = 'middle',
     message,
@@ -26,10 +26,12 @@ const Toast = (
     clearTimer,
   } = props;
   const [visible, setVisible] = useState<boolean>(true);
-  const [layoutStyle, setLayoutStyle] = useState<{ left: number; top: number }>({
-    left: 0,
-    top: 0,
-  });
+  const [layoutStyle, setLayoutStyle] = useState<{ left: number; top: number }>(
+    {
+      left: 0,
+      top: 0,
+    }
+  );
   const { styles, theme } = useThemeFactory(createStyle);
 
   const renderIcon = () => {
@@ -39,23 +41,27 @@ const Toast = (
       const iconSize = props.iconSize || theme.toast_icon_size;
 
       if (React.isValidElement(icon)) return icon;
-
+      const style = { marginBottom: theme.padding_xs };
       return (
         <Icon
           name={(icon as IconNames) || (type === 'fail' ? 'cross' : type)}
           size={iconSize}
           color={theme.toast_text_color}
-          style={{ marginBottom: theme.padding_xs }}
+          style={style}
         />
       );
     }
 
     if (type === 'loading') {
+      const style = {
+        padding: theme.padding_base,
+        marginBottom: theme.padding_xs,
+      };
       return (
         <Loading
           type={loadingType}
           color={theme.toast_loading_icon_color}
-          style={{ padding: theme.padding_base, marginBottom: theme.padding_xs }}
+          style={style}
         />
       );
     }
@@ -77,7 +83,7 @@ const Toast = (
         setVisible(false);
       }, duration);
     }
-  }, []);
+  }, [clearTimer, duration]);
 
   const onLayout = (event: LayoutChangeEvent) => {
     const { width, height } = event.nativeEvent.layout;
@@ -107,7 +113,12 @@ const Toast = (
           }
         }}
       >
-        <View style={[styles.toast, type === 'info' && !icon ? styles.info : styles.default]}>
+        <View
+          style={[
+            styles.toast,
+            type === 'info' && !icon ? styles.info : styles.default,
+          ]}
+        >
           {renderIcon()}
           {renderMessage()}
         </View>

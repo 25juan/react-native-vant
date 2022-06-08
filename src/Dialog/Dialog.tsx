@@ -9,13 +9,26 @@ import createStyle from './style';
 import type { DialogProps } from './type';
 
 const Dialog = (props: DialogProps): JSX.Element => {
-  const { width, title, theme, visible, message, messageAlign = 'center', ...others } = props;
+  const {
+    width,
+    title,
+    theme,
+    visible,
+    message,
+    messageAlign = 'center',
+    ...others
+  } = props;
   const { styles } = useThemeFactory(createStyle);
 
   const renderTitle = () => {
     if (props.title) {
       return (
-        <Text style={[styles.header, !props.message && !props.children && styles.headerIsolated]}>
+        <Text
+          style={[
+            styles.header,
+            !props.message && !props.children && styles.headerIsolated,
+          ]}
+        >
           {title}
         </Text>
       );
@@ -31,7 +44,11 @@ const Dialog = (props: DialogProps): JSX.Element => {
       return (
         <View style={!title && styles.contentIsolated}>
           <Text
-            style={[styles.message, !!title && styles.messageHasTitle, { textAlign: messageAlign }]}
+            style={[
+              styles.message,
+              !!title && styles.messageHasTitle,
+              { textAlign: messageAlign },
+            ]}
           >
             {message}
           </Text>
@@ -51,7 +68,9 @@ const Dialog = (props: DialogProps): JSX.Element => {
           disabled={props.cancelProps?.disabled}
           onPress={props.cancelProps?.loading ? noop : props.onCancel}
           style={styles.cancel}
-          textStyle={props.cancelButtonColor ? { color: props.cancelButtonColor } : {}}
+          textStyle={
+            props.cancelButtonColor ? { color: props.cancelButtonColor } : {}
+          }
         >
           {props.cancelButtonText || '取消'}
         </Button>
@@ -85,7 +104,9 @@ const Dialog = (props: DialogProps): JSX.Element => {
           disabled={props.cancelProps?.disabled}
           onPress={props.cancelProps?.loading ? noop : props.onCancel}
           style={[styles.cancel, styles.roundBarCancel]}
-          textStyle={props.cancelButtonColor ? { color: props.cancelButtonColor } : {}}
+          textStyle={
+            props.cancelButtonColor ? { color: props.cancelButtonColor } : {}
+          }
         />
       )}
       {props.showConfirmButton && (
@@ -108,7 +129,9 @@ const Dialog = (props: DialogProps): JSX.Element => {
 
   const renderFooter = () => {
     if (props.footer) return props.footer;
-    return props.theme === 'round-button' ? renderRoundButtons() : renderButtons();
+    return props.theme === 'round-button'
+      ? renderRoundButtons()
+      : renderButtons();
   };
 
   return (

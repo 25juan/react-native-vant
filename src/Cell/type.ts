@@ -17,7 +17,9 @@ export interface CellProps {
   /**
    * 左侧标题
    */
-  title?: React.ReactNode | ((titleStyle?: StyleProp<TextStyle>) => React.ReactNode);
+  title?:
+    | React.ReactNode
+    | ((titleStyle?: StyleProp<TextStyle>) => React.ReactNode);
   /**
    * 左侧标题额外样式
    */

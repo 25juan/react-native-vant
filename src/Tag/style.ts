@@ -7,7 +7,15 @@ type Params = Pick<
 >;
 
 const createStyle = (theme: DiceUI.Theme, params: Params) => {
-  const { type = 'default', textColor, size = 'mini', round, plain, hairline, color } = params;
+  const {
+    type = 'default',
+    textColor,
+    size = 'mini',
+    round,
+    plain,
+    hairline,
+    color,
+  } = params;
 
   const backgroundColorMaps: Record<TagType, string> = {
     danger: theme.tag_danger_color,
@@ -27,8 +35,10 @@ const createStyle = (theme: DiceUI.Theme, params: Params) => {
     mini: 0,
   };
 
-  const backgroundColor = color || backgroundColorMaps[type] || theme.tag_default_color;
-  const paddingHorizontal = paddingHorizontalMaps[size] || theme.tag_padding_horizontal;
+  const backgroundColor =
+    color || backgroundColorMaps[type] || theme.tag_default_color;
+  const paddingHorizontal =
+    paddingHorizontalMaps[size] || theme.tag_padding_horizontal;
   const paddingVertical = paddingVerticalMaps[size] || 0;
 
   return StyleSheet.create({
@@ -40,7 +50,8 @@ const createStyle = (theme: DiceUI.Theme, params: Params) => {
 
     text: {
       color: plain ? backgroundColor : textColor,
-      fontSize: size === 'large' ? theme.tag_large_font_size : theme.tag_font_size,
+      fontSize:
+        size === 'large' ? theme.tag_large_font_size : theme.tag_font_size,
       lineHeight: theme.tag_line_height,
       paddingHorizontal: paddingHorizontal,
       paddingVertical: paddingVertical,
@@ -48,7 +59,9 @@ const createStyle = (theme: DiceUI.Theme, params: Params) => {
 
     wrapper: {
       alignItems: 'center',
-      backgroundColor: plain ? theme.tag_plain_background_color : backgroundColor,
+      backgroundColor: plain
+        ? theme.tag_plain_background_color
+        : backgroundColor,
       borderColor: backgroundColor,
       borderRadius: round
         ? theme.tag_round_border_radius

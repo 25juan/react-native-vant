@@ -12,7 +12,10 @@ interface Styles {
 
 type Params = Pick<PopupProps, 'position' | 'closeIconPosition'>;
 
-const IconPositionMap: Record<IconPosition, ('bottom' | 'left' | 'top' | 'right')[]> = {
+const IconPositionMap: Record<
+  IconPosition,
+  ('bottom' | 'left' | 'top' | 'right')[]
+> = {
   'bottom-left': ['bottom', 'left'],
   'bottom-right': ['bottom', 'right'],
   'top-left': ['top', 'left'],
@@ -45,12 +48,15 @@ export const createStyle = (theme: DiceUI.Theme, params: Params): Styles => {
     roundRadius.borderBottomLeftRadius = theme.popup_round_border_radius;
   }
 
-  const iconPosition = IconPositionMap[closeIconPosition].reduce<ViewStyle>((result, key) => {
-    return {
-      ...result,
-      [key]: theme.popup_close_icon_margin,
-    };
-  }, {});
+  const iconPosition = IconPositionMap[closeIconPosition].reduce<ViewStyle>(
+    (result, key) => {
+      return {
+        ...result,
+        [key]: theme.popup_close_icon_margin,
+      };
+    },
+    {}
+  );
 
   return StyleSheet.create<Styles>({
     icon: {

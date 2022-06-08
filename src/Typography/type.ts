@@ -1,6 +1,12 @@
 import type { TextProps } from 'react-native';
 
-export type TypographyType = 'danger' | 'secondary' | 'light' | 'primary' | 'success' | 'warning';
+export type TypographyType =
+  | 'danger'
+  | 'secondary'
+  | 'light'
+  | 'primary'
+  | 'success'
+  | 'warning';
 export type TypographySize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 export type TypographyTitleLevel = 1 | 2 | 3 | 4 | 5;
 

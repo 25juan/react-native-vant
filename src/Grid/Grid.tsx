@@ -4,7 +4,7 @@ import { useThemeFactory } from '../Theme';
 import type { GridProps } from './type';
 import { createStyle } from './style';
 
-const Grid = (props: GridProps): JSX.Element => {
+const Grid: React.FC<GridProps> = (props): JSX.Element => {
   const { style, children, border, gutter } = props;
   const { styles } = useThemeFactory(createStyle);
 

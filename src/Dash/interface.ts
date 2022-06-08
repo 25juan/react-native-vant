@@ -1,4 +1,4 @@
-import type { ViewStyle, StyleProp, ViewProps, ColorValue } from 'react-native';
+import type { ViewStyle, StyleProp, ViewProps } from 'react-native';
 
 export interface DashProps extends ViewProps {
   /**
@@ -23,7 +23,7 @@ export interface DashProps extends ViewProps {
   /**
    * 破折号的颜色
    */
-  dashColor?: string | ColorValue;
+  dashColor?: string;
   /**
    * 破折号的样式
    */

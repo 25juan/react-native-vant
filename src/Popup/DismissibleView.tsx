@@ -119,7 +119,8 @@ const DialogDismissibleView = (props: Props): JSX.Element => {
     if (
       isPanning &&
       (dragDeltas.x || dragDeltas.y) &&
-      (dragDeltas.x !== prevDragDeltas.current?.x || dragDeltas.y !== prevDragDeltas.current?.y)
+      (dragDeltas.x !== prevDragDeltas.current?.x ||
+        dragDeltas.y !== prevDragDeltas.current?.y)
     ) {
       onDrag();
       prevDragDeltas.current = dragDeltas;
@@ -155,7 +156,7 @@ const DialogDismissibleView = (props: Props): JSX.Element => {
         animateTo(1);
       }
     },
-    [getHiddenLocation, propsVisible]
+    [animateTo, getHiddenLocation, propsVisible]
   );
 
   const getAnimationStyle = useCallback(() => {
@@ -199,10 +200,14 @@ const DialogDismissibleView = (props: Props): JSX.Element => {
       } else {
         resetSwipe();
         if (
-          (direction === PanningProvider.Directions.LEFT && endValue.x <= -thresholdX.current) ||
-          (direction === PanningProvider.Directions.RIGHT && endValue.x >= thresholdX.current) ||
-          (direction === PanningProvider.Directions.UP && endValue.y <= -thresholdY.current) ||
-          (direction === PanningProvider.Directions.DOWN && endValue.y >= thresholdY.current)
+          (direction === PanningProvider.Directions.LEFT &&
+            endValue.x <= -thresholdX.current) ||
+          (direction === PanningProvider.Directions.RIGHT &&
+            endValue.x >= thresholdX.current) ||
+          (direction === PanningProvider.Directions.UP &&
+            endValue.y <= -thresholdY.current) ||
+          (direction === PanningProvider.Directions.DOWN &&
+            endValue.y >= thresholdY.current)
         ) {
           hide();
         } else {

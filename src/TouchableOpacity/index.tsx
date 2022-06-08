@@ -23,18 +23,29 @@ const TouchableOpacity = forwardRef<RNTouchableOpacity, TouchableOpacityProps>(
     } = props;
     const [active, setActive] = useState<boolean>(false);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const handlePress = useCallback(
-      throttle((e: GestureResponderEvent) => onPress?.(e), throttleTime, throttleOptions),
+      throttle(
+        (e: GestureResponderEvent) => onPress?.(e),
+        throttleTime,
+        throttleOptions
+      ),
       []
     );
-    const handlePressIn = useCallback((event: GestureResponderEvent) => {
-      setActive(true);
-      onPressIn?.(event);
-    }, []);
-    const handlePressOut = useCallback((event: GestureResponderEvent) => {
-      setActive(false);
-      onPressOut?.(event);
-    }, []);
+    const handlePressIn = useCallback(
+      (event: GestureResponderEvent) => {
+        setActive(true);
+        onPressIn?.(event);
+      },
+      [onPressIn]
+    );
+    const handlePressOut = useCallback(
+      (event: GestureResponderEvent) => {
+        setActive(false);
+        onPressOut?.(event);
+      },
+      [onPressOut]
+    );
 
     const backgroundStyle = useMemo<ViewStyle>(() => {
       if (active && activeBackgroundColor) {

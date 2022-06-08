@@ -65,7 +65,9 @@ export const createStyle = (theme: DiceUI.Theme, params: Params): Styles => {
       backgroundColor: theme.stepper_button_icon_color,
       ...(minusDisabled ? disabledLine : null),
       ...(isRound ? {} : null),
-      ...(isRound ? { backgroundColor: theme.stepper_button_round_theme_color } : null),
+      ...(isRound
+        ? { backgroundColor: theme.stepper_button_round_theme_color }
+        : null),
     },
     minusButton: {
       ...buttonStyle,
@@ -86,7 +88,9 @@ export const createStyle = (theme: DiceUI.Theme, params: Params): Styles => {
     plusButton: {
       ...buttonStyle,
       ...(plusDisabled ? disabledButton : null),
-      ...(isRound ? { backgroundColor: theme.stepper_button_round_theme_color } : null),
+      ...(isRound
+        ? { backgroundColor: theme.stepper_button_round_theme_color }
+        : null),
     },
     stepper: {
       borderRadius: theme.stepper_radius,

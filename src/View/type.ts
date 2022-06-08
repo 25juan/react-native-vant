@@ -1,4 +1,10 @@
-import type { ViewProps as RNViewProps, StyleProp, ViewStyle, Animated } from 'react-native';
+import type {
+  ViewProps as RNViewProps,
+  StyleProp,
+  ViewStyle,
+  Animated,
+} from 'react-native';
+import type { ReactElement } from 'react';
 
 export interface ViewProps extends Omit<RNViewProps, 'style'> {
   /**
@@ -9,5 +15,6 @@ export interface ViewProps extends Omit<RNViewProps, 'style'> {
    * 是否使用 Animate.View
    */
   animated?: boolean;
+  children?: ReactElement | Array<ReactElement>;
   style?: StyleProp<ViewStyle | Animated.AnimatedProps<ViewStyle>>;
 }

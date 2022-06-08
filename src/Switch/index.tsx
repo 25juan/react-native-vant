@@ -1,12 +1,17 @@
 import React, { FC, useRef } from 'react';
-import { TouchableWithoutFeedback, Animated, Platform, StyleSheet } from 'react-native';
+import {
+  TouchableWithoutFeedback,
+  Animated,
+  Platform,
+  StyleSheet,
+} from 'react-native';
 import { useControllableValue, useUpdateEffect } from '../hooks';
 import { useThemeFactory } from '../Theme';
 import Loading from '../Loading';
 import createStyle from './style';
 import type { SwitchProps } from './interface';
 
-const Switch: FC<SwitchProps> = props => {
+const Switch: FC<SwitchProps> = (props) => {
   const {
     loading,
     disabled,
@@ -23,8 +28,10 @@ const Switch: FC<SwitchProps> = props => {
   const { styles, theme } = useThemeFactory(createStyle, size);
 
   const isChecked = checked === activeValue;
-  const translateXValueEnd = StyleSheet.flatten(styles.nodeRight).left as number;
-  const translateXValueStart = StyleSheet.flatten(styles.nodeLeft).left as number;
+  const translateXValueEnd = StyleSheet.flatten(styles.nodeRight)
+    .left as number;
+  const translateXValueStart = StyleSheet.flatten(styles.nodeLeft)
+    .left as number;
   const duration = theme.switch_transition_duration;
 
   const translateX = useRef(

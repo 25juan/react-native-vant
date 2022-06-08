@@ -12,13 +12,15 @@ type Styles = {
 const createStyle = (theme: DiceUI.Theme): Styles => {
   return StyleSheet.create<Styles>({
     default: {
-      minHeight: theme.toast_default_min_height + theme.toast_default_padding * 2,
+      minHeight:
+        theme.toast_default_min_height + theme.toast_default_padding * 2,
       padding: theme.toast_default_padding,
       width: theme.toast_default_width + theme.toast_default_padding * 2,
     },
     info: {
       minHeight: 0,
-      minWidth: theme.toast_text_min_width + theme.toast_text_padding_horizontal * 2,
+      minWidth:
+        theme.toast_text_min_width + theme.toast_text_padding_horizontal * 2,
       paddingHorizontal: theme.toast_text_padding_horizontal,
       paddingVertical: theme.toast_text_padding_vertical,
     },

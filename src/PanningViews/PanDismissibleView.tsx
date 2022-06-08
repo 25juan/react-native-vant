@@ -1,9 +1,18 @@
 import React, { PureComponent } from 'react';
-import { Animated, LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native';
+import {
+  Animated,
+  LayoutChangeEvent,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import Constants from '../utils/constants';
 import asPanViewConsumer from './asPanViewConsumer';
 import PanningProvider from './PanningProvider';
-import type { PanningDirections, PanAmountsProps, PanDirectionsProps } from './PanningContext';
+import type {
+  PanningDirections,
+  PanAmountsProps,
+  PanDirectionsProps,
+} from './PanningContext';
 
 export interface DismissibleAnimationProps {
   /**
@@ -148,7 +157,8 @@ class PanDismissibleView extends PureComponent<Props, State> {
     if (
       isPanning &&
       (swipeDirections.x || swipeDirections.y) &&
-      (swipeDirections.x !== prevSwipeDirections.x || swipeDirections.y !== prevSwipeDirections.y)
+      (swipeDirections.x !== prevSwipeDirections.x ||
+        swipeDirections.y !== prevSwipeDirections.y)
     ) {
       this.onSwipe(swipeDirections);
     }
@@ -166,7 +176,10 @@ class PanDismissibleView extends PureComponent<Props, State> {
     }
   };
 
-  initPositions = (extraDataForSetState?: State, runAfterSetState?: () => void) => {
+  initPositions = (
+    extraDataForSetState?: State,
+    runAfterSetState?: () => void
+  ) => {
     this.setNativeProps(0, 0);
     this.animTranslateX = new Animated.Value(0);
     this.animTranslateY = new Animated.Value(0);
@@ -211,10 +224,14 @@ class PanDismissibleView extends PureComponent<Props, State> {
     } else {
       const endValue = { x: Math.round(this.left), y: Math.round(this.top) };
       if (
-        (directions.includes(PanningProvider.Directions.LEFT) && endValue.x <= -this.thresholdX) ||
-        (directions.includes(PanningProvider.Directions.RIGHT) && endValue.x >= this.thresholdX) ||
-        (directions.includes(PanningProvider.Directions.UP) && endValue.y <= -this.thresholdY) ||
-        (directions.includes(PanningProvider.Directions.DOWN) && endValue.y >= this.thresholdY)
+        (directions.includes(PanningProvider.Directions.LEFT) &&
+          endValue.x <= -this.thresholdX) ||
+        (directions.includes(PanningProvider.Directions.RIGHT) &&
+          endValue.x >= this.thresholdX) ||
+        (directions.includes(PanningProvider.Directions.UP) &&
+          endValue.y <= -this.thresholdY) ||
+        (directions.includes(PanningProvider.Directions.DOWN) &&
+          endValue.y >= this.thresholdY)
       ) {
         const { isRight, isDown } = this.getDismissAnimationDirection();
         this._animateDismiss(isRight, isDown);
@@ -258,14 +275,17 @@ class PanDismissibleView extends PureComponent<Props, State> {
   };
 
   onResetPositionFinished = () => {
-    const runAfterSetState = this.shouldDismissAfterReset ? this.animateDismiss : undefined;
+    const runAfterSetState = this.shouldDismissAfterReset
+      ? this.animateDismiss
+      : undefined;
     this.shouldDismissAfterReset = false;
     this.initPositions({ isAnimating: false }, runAfterSetState);
   };
 
   getDismissAnimationDirection = () => {
     const { allowDiagonalDismiss } = this.props;
-    const { swipeDirections, swipeVelocities, dragDirections, dragDeltas } = this.props.context;
+    const { swipeDirections, swipeVelocities, dragDirections, dragDeltas } =
+      this.props.context;
     const hasHorizontalSwipe = swipeDirections.x !== undefined;
     const hasVerticalSwipe = swipeDirections.y !== undefined;
     let isRight;
@@ -392,7 +412,10 @@ class PanDismissibleView extends PureComponent<Props, State> {
     const { style } = this.props;
     const { isAnimating } = this.state;
     const transform = isAnimating
-      ? [{ translateX: this.animTranslateX }, { translateY: this.animTranslateY }]
+      ? [
+          { translateX: this.animTranslateX },
+          { translateY: this.animTranslateY },
+        ]
       : [];
 
     return (

@@ -1,11 +1,14 @@
-import type { ReactNode } from 'react';
 import type { IconNames } from '../Icon';
 
 export type Position = 'top' | 'bottom' | 'right' | 'left' | 'center';
-export type IconPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+export type IconPosition =
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
 
 export interface DialogProps {
-  children?: ReactNode;
+  children?: unknown;
   /**
    * 是否显示弹出层
    */

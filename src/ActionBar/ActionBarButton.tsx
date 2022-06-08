@@ -6,13 +6,14 @@ import type { ActionBarButtonProps } from './type';
 import { useThemeFactory } from '../Theme';
 import { createButtonStyles } from './style';
 
-const ActionBarButton: React.FC<ActionBarButtonProps> = props => {
-  const { type, icon, text, color, loading, disabled, index, textStyle } = props;
+const ActionBarButton: React.FC<ActionBarButtonProps> = (props) => {
+  const { type, icon, text, color, loading, disabled, index, textStyle } =
+    props;
   const { parent } = useContext(ActionBarContext);
   const { styles } = useThemeFactory(createButtonStyles);
 
   const isFirst = useMemo(() => {
-    if (parent && isNumber(index)) {
+    if (parent && isNumber(index) && index) {
       const prev = parent.children[index - 1];
       return !(prev && 'isButton' in prev.type);
     }
@@ -20,7 +21,7 @@ const ActionBarButton: React.FC<ActionBarButtonProps> = props => {
   }, [index, parent]);
 
   const isLast = useMemo(() => {
-    if (parent && isNumber(index)) {
+    if (parent && isNumber(index) && index) {
       const next = parent.children[index + 1];
       return !(next && 'isButton' in next.type);
     }
@@ -51,6 +52,8 @@ const ActionBarButton: React.FC<ActionBarButtonProps> = props => {
   );
 };
 
-const ActionBarButtonNameSpace = Object.assign(ActionBarButton, { isButton: true });
+const ActionBarButtonNameSpace = Object.assign(ActionBarButton, {
+  isButton: true,
+});
 
 export default ActionBarButtonNameSpace;

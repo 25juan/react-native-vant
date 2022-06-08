@@ -3,9 +3,8 @@ import { createTheming } from '@callstack/react-theme-provider';
 import type { StyleSheet } from 'react-native';
 import { defaultTheme } from '../styles';
 
-export const { ThemeProvider, withTheme, useTheme } = createTheming<DiceUI.Theme>(
-  defaultTheme as DiceUI.Theme
-);
+export const { ThemeProvider, withTheme, useTheme } =
+  createTheming<DiceUI.Theme>(defaultTheme as DiceUI.Theme);
 
 type ThemeFactoryCallBack<T> = {
   styles: StyleSheet.NamedStyles<T>;

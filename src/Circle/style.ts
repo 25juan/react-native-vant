@@ -11,7 +11,10 @@ interface Styles {
 
 type ExtraParams = Pick<CircleProps, 'size'>;
 
-export const createStyle = (theme: DiceUI.Theme, params: ExtraParams): Styles => {
+export const createStyle = (
+  theme: DiceUI.Theme,
+  params: ExtraParams
+): Styles => {
   const { size } = params;
   const circleSize = size ?? theme.circle_size;
 

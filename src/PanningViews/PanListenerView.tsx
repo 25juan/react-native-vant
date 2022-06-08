@@ -1,5 +1,10 @@
 import React, { memo, useRef, useContext } from 'react';
-import { View, PanResponder, GestureResponderEvent, PanResponderGestureState } from 'react-native';
+import {
+  View,
+  PanResponder,
+  GestureResponderEvent,
+  PanResponderGestureState,
+} from 'react-native';
 import type { ViewProps } from 'react-native';
 import PanningContext, { PanningDirectionsEnum } from './PanningContext';
 import type {
@@ -36,6 +41,8 @@ export interface PanListenerViewProps extends PanningProps, ViewProps {
    * 这可能会影响此组件的可平移性。
    */
   isClickable?: boolean;
+
+  children?: unknown;
 }
 
 interface PanningResultProps {
@@ -55,7 +62,9 @@ const DEFAULT_SWIPE_VELOCITY = 1.8;
 const yes = () => true;
 const no = () => false;
 
-const PanListenerView = (props: PanListenerViewProps): JSX.Element => {
+const PanListenerView: React.FC<PanListenerViewProps> = (
+  props
+): JSX.Element => {
   const {
     children,
     directions = DEFAULT_DIRECTIONS,
@@ -79,10 +88,14 @@ const PanListenerView = (props: PanListenerViewProps): JSX.Element => {
 
     return Boolean(
       directions &&
-        ((directions.includes(PanningDirectionsEnum.UP) && dy < -panSensitivity) ||
-          (directions.includes(PanningDirectionsEnum.DOWN) && dy > panSensitivity) ||
-          (directions.includes(PanningDirectionsEnum.LEFT) && dx < -panSensitivity) ||
-          (directions.includes(PanningDirectionsEnum.RIGHT) && dx > panSensitivity))
+        ((directions.includes(PanningDirectionsEnum.UP) &&
+          dy < -panSensitivity) ||
+          (directions.includes(PanningDirectionsEnum.DOWN) &&
+            dy > panSensitivity) ||
+          (directions.includes(PanningDirectionsEnum.LEFT) &&
+            dx < -panSensitivity) ||
+          (directions.includes(PanningDirectionsEnum.RIGHT) &&
+            dx > panSensitivity))
     );
   };
 
@@ -91,11 +104,23 @@ const PanListenerView = (props: PanListenerViewProps): JSX.Element => {
     context?.onPanStart?.();
   };
 
-  const getSwipeDirection = ({ vx, vy }: { vx: number; vy: number }): PanningResultProps => {
+  const getSwipeDirection = ({
+    vx,
+    vy,
+  }: {
+    vx: number;
+    vy: number;
+  }): PanningResultProps => {
     return getDirectionsOverSensitivity(vx, vy, swipeVelocitySensitivity);
   };
 
-  const getDragDirection = ({ dx, dy }: { dx: number; dy: number }): PanningResultProps => {
+  const getDragDirection = ({
+    dx,
+    dy,
+  }: {
+    dx: number;
+    dy: number;
+  }): PanningResultProps => {
     return getDirectionsOverSensitivity(dx, dy, 0);
   };
 
@@ -110,7 +135,10 @@ const PanListenerView = (props: PanListenerViewProps): JSX.Element => {
     if (directions.includes(PanningDirectionsEnum.LEFT) && x < -sensitivity) {
       selectedDirections.x = PanningDirectionsEnum.LEFT;
       selectedAmounts.x = x;
-    } else if (directions.includes(PanningDirectionsEnum.RIGHT) && x > sensitivity) {
+    } else if (
+      directions.includes(PanningDirectionsEnum.RIGHT) &&
+      x > sensitivity
+    ) {
       selectedDirections.x = PanningDirectionsEnum.RIGHT;
       selectedAmounts.x = x;
     }
@@ -118,7 +146,10 @@ const PanListenerView = (props: PanListenerViewProps): JSX.Element => {
     if (directions.includes(PanningDirectionsEnum.UP) && y < -sensitivity) {
       selectedDirections.y = PanningDirectionsEnum.UP;
       selectedAmounts.y = y;
-    } else if (directions.includes(PanningDirectionsEnum.DOWN) && y > sensitivity) {
+    } else if (
+      directions.includes(PanningDirectionsEnum.DOWN) &&
+      y > sensitivity
+    ) {
       selectedDirections.y = PanningDirectionsEnum.DOWN;
       selectedAmounts.y = y;
     }
@@ -126,11 +157,19 @@ const PanListenerView = (props: PanListenerViewProps): JSX.Element => {
     return { selectedDirections, selectedAmounts };
   };
 
-  const panResultHasValue = <T extends PanningResultProps>(panResult?: T): panResult is T => {
-    return Boolean(panResult && (panResult.selectedDirections.x || panResult.selectedDirections.y));
+  const panResultHasValue = <T extends PanningResultProps>(
+    panResult?: T
+  ): panResult is T => {
+    return Boolean(
+      panResult &&
+        (panResult.selectedDirections.x || panResult.selectedDirections.y)
+    );
   };
 
-  const handlePanMove = (_e: GestureResponderEvent, gestureState: PanResponderGestureState) => {
+  const handlePanMove = (
+    _e: GestureResponderEvent,
+    gestureState: PanResponderGestureState
+  ) => {
     const hasSwipe = !!onSwipe;
     const hasDrag = !!onDrag;
     const hasContext = !!context;
@@ -191,4 +230,4 @@ const PanListenerView = (props: PanListenerViewProps): JSX.Element => {
 
 PanListenerView.displayName = 'PanListenerView';
 
-export default memo(PanListenerView);
+export default memo<React.FC<PanListenerViewProps>>(PanListenerView);

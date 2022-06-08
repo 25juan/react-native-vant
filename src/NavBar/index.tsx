@@ -1,5 +1,11 @@
 import React, { memo } from 'react';
-import { View, TouchableOpacity, StyleSheet, Text, SafeAreaView } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+} from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 
 import type { NavBarProps } from './interface';
@@ -8,7 +14,7 @@ import Icon from '../Icon';
 import { isDef } from '../utils/typeof';
 import { createStyle } from './style';
 
-const NavBar: React.FC<NavBarProps> = props => {
+const NavBar: React.FC<NavBarProps> = (props) => {
   const {
     style,
     leftArrowStyle,
@@ -34,7 +40,10 @@ const NavBar: React.FC<NavBarProps> = props => {
       : null,
     style,
   ]);
-  const leftArrowStyleSummary = StyleSheet.flatten<TextStyle>([styles.leftArrow, leftArrowStyle]);
+  const leftArrowStyleSummary = StyleSheet.flatten<TextStyle>([
+    styles.leftArrow,
+    leftArrowStyle,
+  ]);
 
   /** 标题部分 纯文字或自定义 JSX */
   const titleJSX = isDef(title) ? (

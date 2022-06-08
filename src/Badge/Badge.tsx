@@ -22,7 +22,10 @@ const Badge = forwardRef<View, BadgeProps>((props, ref) => {
   } = props;
   const [offsetX = 0, offsetY = 0] = offset ?? [];
   const { styles } = useThemeFactory(createStyle, { color });
-  const [badgeOffset, setBadgeOffset] = useState<{ top: number; right: number }>({
+  const [badgeOffset, setBadgeOffset] = useState<{
+    top: number;
+    right: number;
+  }>({
     top: 0,
     right: 0,
   });
@@ -50,7 +53,11 @@ const Badge = forwardRef<View, BadgeProps>((props, ref) => {
 
   const renderContent = () => {
     if (!dot && hasContent()) {
-      if (!isNil(max) && isNumber(toNumber(content)) && toNumber(content) > max) {
+      if (
+        !isNil(max) &&
+        isNumber(toNumber(content)) &&
+        toNumber(content) > max
+      ) {
         return `${max}+`;
       }
 
@@ -68,7 +75,9 @@ const Badge = forwardRef<View, BadgeProps>((props, ref) => {
           style={[
             styles.badgeContainer,
             !!children && styles.fixed,
-            children ? badgeOffset : { marginTop: offsetY, marginLeft: offsetX },
+            children
+              ? badgeOffset
+              : { marginTop: offsetY, marginLeft: offsetX },
             !children && style,
           ]}
           onLayout={onBadgeLayout}
@@ -76,7 +85,9 @@ const Badge = forwardRef<View, BadgeProps>((props, ref) => {
           {React.isValidElement(content) ? (
             <View style={styles.badge}>{renderContent()}</View>
           ) : (
-            <Text style={[styles.badge, dot && styles.dot]}>{renderContent()}</Text>
+            <Text style={[styles.badge, dot && styles.dot]}>
+              {renderContent()}
+            </Text>
           )}
         </View>
       );
@@ -97,4 +108,4 @@ const Badge = forwardRef<View, BadgeProps>((props, ref) => {
 
 Badge.displayName = 'Badge';
 
-export default memo(Badge);
+export default memo<React.FC<BadgeProps>>(Badge);

@@ -1,6 +1,9 @@
 import type { FlexStyle } from 'react-native';
 
-type MarginStyles = Pick<FlexStyle, 'marginLeft' | 'marginTop' | 'marginRight' | 'marginBottom'>;
+type MarginStyles = Pick<
+  FlexStyle,
+  'marginLeft' | 'marginTop' | 'marginRight' | 'marginBottom'
+>;
 type PaddingStyles = Pick<
   FlexStyle,
   'paddingLeft' | 'paddingTop' | 'paddingRight' | 'paddingBottom'

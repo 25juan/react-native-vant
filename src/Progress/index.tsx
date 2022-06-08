@@ -6,7 +6,13 @@ import type { ProgressProps } from './type';
 import { createStyle } from './style';
 
 const Progress = forwardRef<View, ProgressProps>((props, ref) => {
-  const { style, percentage = 0, showPivot = true, pivotText, ...extra } = props;
+  const {
+    style,
+    percentage = 0,
+    showPivot = true,
+    pivotText,
+    ...extra
+  } = props;
   const { styles } = useThemeFactory(createStyle, { ...extra, percentage });
   const [pivotWidth, setPivotWidth] = useState<number>(0);
 
@@ -20,7 +26,10 @@ const Progress = forwardRef<View, ProgressProps>((props, ref) => {
       <View style={styles.portion} />
       {showPivot && (
         <View
-          style={[styles.pivotContainer, { transform: [{ translateX: -pivotWidth / 2 }] }]}
+          style={[
+            styles.pivotContainer,
+            { transform: [{ translateX: -pivotWidth / 2 }] },
+          ]}
           onLayout={onPivotLayout}
         >
           <Text style={styles.pivot}>{pivotText ?? `${percentage}%`}</Text>

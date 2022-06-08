@@ -19,4 +19,6 @@ export interface CheckboxGroupContext {
   cancelValue: (val: string) => void;
 }
 
-export const GroupContext = React.createContext<CheckboxGroupContext | null>(null);
+export const GroupContext = React.createContext<CheckboxGroupContext | null>(
+  null
+);

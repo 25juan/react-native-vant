@@ -28,7 +28,7 @@ let destroy = noop;
 let currentOptions: NotifyOptions = createDefaultOptions();
 let updateCurrentOptions: ((options: NotifyOptions) => void) | null;
 
-const show: NotifyStatic['show'] = option => {
+const show: NotifyStatic['show'] = (option) => {
   const key = `notify_${++currentKey}`;
   const props = parseOptions(option);
   const interProps = { ...currentOptions, ...props };
@@ -62,7 +62,7 @@ const show: NotifyStatic['show'] = option => {
       return () => {
         timer && clearTimeout(timer);
       };
-    }, [tempOptions]);
+    }, [duration, tempOptions]);
 
     return (
       <Notify
@@ -81,7 +81,7 @@ const show: NotifyStatic['show'] = option => {
 
 const clear: NotifyStatic['clear'] = () => destroy();
 
-const setDefaultOptions: NotifyStatic['setDefaultOptions'] = options => {
+const setDefaultOptions: NotifyStatic['setDefaultOptions'] = (options) => {
   currentOptions = {
     ...currentOptions,
     ...options,

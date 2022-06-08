@@ -14,7 +14,13 @@ function asPanViewConsumer<PROPS>(
     render() {
       return (
         <PanningContext.Consumer>
-          {context => <WrappedComponent ref={this.saveRef} context={context} {...this.props} />}
+          {(context) => (
+            <WrappedComponent
+              ref={this.saveRef}
+              context={context}
+              {...this.props}
+            />
+          )}
         </PanningContext.Consumer>
       );
     }

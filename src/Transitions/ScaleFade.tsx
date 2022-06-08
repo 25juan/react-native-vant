@@ -4,7 +4,13 @@ import type { ScaleFadeProps } from './types';
 import Transition from './Transition';
 
 const ScaleFade = forwardRef<any, ScaleFadeProps>((props, ref) => {
-  const { children, initialScale, duration, in: animationState, ...rest } = props;
+  const {
+    children,
+    initialScale,
+    duration,
+    in: animationState,
+    ...rest
+  } = props;
 
   return (
     <Transition

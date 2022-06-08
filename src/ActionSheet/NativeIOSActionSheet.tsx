@@ -8,7 +8,9 @@ import type { ActionSheetProps } from './type';
  * @param props ActionSheetProps
  * @returns JSX.Element
  */
-const NativeIOSActionSheet = (props: ActionSheetProps): JSX.Element => {
+const NativeIOSActionSheet: React.FC<ActionSheetProps> = (
+  props
+): JSX.Element => {
   const {
     visible,
     actions = [],
@@ -20,8 +22,8 @@ const NativeIOSActionSheet = (props: ActionSheetProps): JSX.Element => {
     onSelect,
   } = props;
 
-  const handleOpen = () => {
-    const actionNames = actions.map(it => it.name);
+  const handleOpen = React.useCallback(() => {
+    const actionNames = actions.map((it) => it.name);
     const hasCancel = cancelText && isString(cancelText);
 
     ActionSheetIOS.showActionSheetWithOptions(
@@ -31,7 +33,7 @@ const NativeIOSActionSheet = (props: ActionSheetProps): JSX.Element => {
         message: isString(description) ? description : undefined,
         cancelButtonIndex: hasCancel ? actionNames.length : undefined,
       },
-      buttonIndex => {
+      (buttonIndex) => {
         if (buttonIndex === actionNames.length) {
           onCancel?.();
         } else {
@@ -40,11 +42,11 @@ const NativeIOSActionSheet = (props: ActionSheetProps): JSX.Element => {
         onClose?.();
       }
     );
-  };
+  }, [actions, cancelText, description, onCancel, onClose, onSelect, title]);
 
   useEffect(() => {
-    if (visible) handleOpen();
-  }, [visible]);
+    visible && handleOpen();
+  }, [handleOpen, visible]);
 
   return <></>;
 };

@@ -1,7 +1,14 @@
 import type { TextStyle } from 'react-native';
-import type { TypographyType, TypographySize, TypographyTitleLevel } from './type';
+import type {
+  TypographyType,
+  TypographySize,
+  TypographyTitleLevel,
+} from './type';
 
-export const getTypeStyle = (theme: DiceUI.Theme, type?: TypographyType): TextStyle => {
+export const getTypeStyle = (
+  theme: DiceUI.Theme,
+  type?: TypographyType
+): TextStyle => {
   if (type === 'primary') {
     return { color: theme.typography_primary_color };
   }
@@ -64,7 +71,10 @@ export const getSizeStyle = (
   };
 };
 
-export const getLevelStyle = (theme: DiceUI.Theme, level: TypographyTitleLevel): TextStyle => {
+export const getLevelStyle = (
+  theme: DiceUI.Theme,
+  level: TypographyTitleLevel
+): TextStyle => {
   if (level === 1) {
     return {
       marginBottom: 25,

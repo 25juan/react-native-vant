@@ -58,12 +58,25 @@ export interface DialogProps {
   /** Dialog完全关闭后的回调 */
   onClosed?: () => void;
   /** 点击确认的回调 */
-  onConfirm?: () => void | boolean | Promise<boolean> | Promise<void> | Promise<void | boolean>;
+  onConfirm?: () =>
+    | void
+    | boolean
+    | Promise<boolean>
+    | Promise<void>
+    | Promise<void | boolean>;
   /** 是否支持点击遮罩关闭对话框 */
-  onCancel?: () => void | boolean | Promise<boolean> | Promise<void> | Promise<void | boolean>;
+  onCancel?: () =>
+    | void
+    | boolean
+    | Promise<boolean>
+    | Promise<void>
+    | Promise<void | boolean>;
 }
 
-export type AlertDialogProps = Omit<DialogProps, 'confirmButtonText' | 'onCancel'>;
+export type AlertDialogProps = Omit<
+  DialogProps,
+  'confirmButtonText' | 'onCancel'
+>;
 
 export type DialogStatic = {
   (props: DialogProps): JSX.Element;

@@ -28,7 +28,11 @@ function trimExtraChar(value: string, char: string, regExp: RegExp) {
  * @param allowMinus 是否允许「-」号
  * @returns
  */
-export function formatNumber(value: string, allowDot = true, allowMinus = true): string {
+export function formatNumber(
+  value: string,
+  allowDot = true,
+  allowMinus = true
+): string {
   let _value = value;
   if (allowDot) {
     _value = trimExtraChar(value, '.', /\./g);

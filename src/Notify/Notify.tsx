@@ -1,12 +1,14 @@
 import React from 'react';
-import { Text, Pressable } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import PopupDialog from '../Popup/Dialog';
 import { useThemeFactory } from '../Theme';
 import { createStyle } from './style';
 import type { NotifyProps, NotifyPrivateProps } from './type';
 
-export const Notify = (props: NotifyProps & NotifyPrivateProps): JSX.Element => {
+export const Notify: React.FC<NotifyProps & NotifyPrivateProps> = (
+  props
+): JSX.Element => {
   const { type = 'danger', visible, color, background } = props;
   const insets = useSafeAreaInsets();
   const { styles } = useThemeFactory(createStyle);
@@ -20,7 +22,7 @@ export const Notify = (props: NotifyProps & NotifyPrivateProps): JSX.Element => 
       onClosed={props.onClosed}
       onOpened={props.onOpened}
     >
-      <Pressable
+      <TouchableOpacity
         onPress={props.onPress}
         style={[
           { paddingTop: insets.top },
@@ -32,8 +34,10 @@ export const Notify = (props: NotifyProps & NotifyPrivateProps): JSX.Element => 
           !!background && { backgroundColor: background },
         ]}
       >
-        <Text style={[styles.text, !!color && { color }]}>{props.children || props.message}</Text>
-      </Pressable>
+        <Text style={[styles.text, !!color && { color }]}>
+          {props.children || props.message}
+        </Text>
+      </TouchableOpacity>
     </PopupDialog>
   );
 };

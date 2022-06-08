@@ -1,6 +1,18 @@
-import React, { memo, useContext, useRef, useMemo, useEffect, useCallback } from 'react';
-import { ScrollView, View, Text, Pressable, Animated } from 'react-native';
-import type { ViewStyle } from 'react-native';
+import React, {
+  memo,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
+import {
+  Animated,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import isFunction from 'lodash-es/isFunction';
 import isEmpty from 'lodash-es/isEmpty';
 import { useUpdateEffect } from '../hooks';
@@ -65,7 +77,7 @@ const TabBar = ({ navs }: TabBarProps): JSX.Element => {
       onClickTab?.(idx, !!item.disabled);
       !item.disabled && setCurrentIndex(idx);
     },
-    [setCurrentIndex]
+    [onClickTab, setCurrentIndex]
   );
 
   const renderText = (item: TabPaneProps, idx: number) => {
@@ -104,7 +116,7 @@ const TabBar = ({ navs }: TabBarProps): JSX.Element => {
     return text;
   };
 
-  const indicatorStyle = useMemo<Animated.WithAnimatedObject<ViewStyle>>(() => {
+  const indicatorStyle = useMemo(() => {
     const inputRange = itemsLayout.map((_v: ItemLayout, i: number) => i);
     let width: number | Animated.AnimatedInterpolation;
     let marginHorizontal: number | Animated.AnimatedInterpolation;
@@ -127,12 +139,14 @@ const TabBar = ({ navs }: TabBarProps): JSX.Element => {
       width = lineWidth;
       marginHorizontal = targetPage.interpolate({
         inputRange,
-        outputRange: itemsLayout.map((v: ItemLayout) => (v.containerWidth - lineWidth) / 2),
+        outputRange: itemsLayout.map(
+          (v: ItemLayout) => (v.containerWidth - lineWidth) / 2
+        ),
       });
     }
 
     return { width, left, marginHorizontal };
-  }, [itemsLayout, lineWidth]);
+  }, [itemsLayout, lineWidth, targetPage]);
 
   return (
     <ScrollView
@@ -151,14 +165,16 @@ const TabBar = ({ navs }: TabBarProps): JSX.Element => {
       alwaysBounceHorizontal={false}
     >
       {navs.map((item, idx) => (
-        <Pressable
+        <TouchableOpacity
           key={item.key}
           style={styles.tab}
           onPress={() => handleClickTab(item, idx)}
-          onLayout={e => onItemContainerLayout(e, idx)}
+          onLayout={(e) => onItemContainerLayout(e, idx)}
         >
-          <View onLayout={e => onItemLayout(e, idx)}>{renderText(item, idx)}</View>
-        </Pressable>
+          <View onLayout={(e) => onItemLayout(e, idx)}>
+            {renderText(item, idx)}
+          </View>
+        </TouchableOpacity>
       ))}
       {type === 'line' && (
         <Animated.View

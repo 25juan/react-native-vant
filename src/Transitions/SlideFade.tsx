@@ -10,11 +10,10 @@ export function canUseDom() {
   return false;
 }
 
-const SlideFade = forwardRef<any, SlideFadeProps>((props, ref) => {
+const SlideFade = forwardRef<any, SlideFadeProps>((props) => {
   const {
     children,
     in: animationState,
-    delay,
     duration = 500,
     offsetX = 10,
     offsetY = 10,
@@ -68,7 +67,7 @@ const SlideFade = forwardRef<any, SlideFadeProps>((props, ref) => {
   animationState ? animIn() : animOut();
 
   return (
-    <Animated.View ref={ref}>
+    <Animated.View>
       <View {...rest}>{children}</View>
     </Animated.View>
   );

@@ -54,7 +54,10 @@ const Circle = forwardRef<View, CircleProps>((props, ref) => {
   const [nextRate, setNextRate] = useState<number>(rate);
 
   const viewBoxSize = useMemo(() => +strokeWidth + 1000, [strokeWidth]);
-  const path = useMemo(() => getPath(clockwise, viewBoxSize), [clockwise, viewBoxSize]);
+  const path = useMemo(
+    () => getPath(clockwise, viewBoxSize),
+    [clockwise, viewBoxSize]
+  );
 
   const svgStyle = useMemo<ViewStyle>(() => {
     const angleValue = ROTATE_ANGLE_MAP[startPosition];
@@ -67,11 +70,12 @@ const Circle = forwardRef<View, CircleProps>((props, ref) => {
   }, [startPosition]);
 
   useEffect(() => {
-    currentRate.addListener(i => setNextRate(i.value));
+    currentRate.addListener((i) => setNextRate(i.value));
 
     return () => {
       currentRate.removeAllListeners();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useUpdateEffect(() => {
@@ -102,7 +106,10 @@ const Circle = forwardRef<View, CircleProps>((props, ref) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       // eslint-disable-next-line react/no-array-index-key
-      .map((key, index) => <Stop key={index} offset={key} stopColor={color[key]} />);
+      .map((key, index) => (
+        // color[key]
+        <Stop key={index} offset={key} stopColor={color} />
+      ));
 
     return (
       <Defs>
@@ -115,10 +122,19 @@ const Circle = forwardRef<View, CircleProps>((props, ref) => {
 
   return (
     <View ref={ref} style={[style, styles.wrapper]}>
-      <Svg viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`} style={[styles.svg, svgStyle]} fill="none">
+      <Svg
+        viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
+        style={[styles.svg, svgStyle]}
+        fill="none"
+      >
         {renderGradient()}
         {/* 轨道 */}
-        <Path stroke={layerColor} fill={fill} strokeWidth={strokeWidth} d={path} />
+        <Path
+          stroke={layerColor}
+          fill={fill}
+          strokeWidth={strokeWidth}
+          d={path}
+        />
         <AnimatePath
           d={path}
           stroke={isObject(color) ? `url(#${id})` : color}

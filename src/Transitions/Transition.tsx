@@ -1,6 +1,10 @@
 import React, { forwardRef } from 'react';
 import { Animated } from 'react-native';
-import type { SupportedTransitions, TransitionConfig, TransitionProps } from './types';
+import type {
+  SupportedTransitions,
+  TransitionConfig,
+  TransitionProps,
+} from './types';
 
 const transformStylesMap = {
   translateY: true,
@@ -22,13 +26,14 @@ const defaultStyles = {
 };
 
 const getAnimatedStyles =
-  (animateValue: Animated.Value) => (initial: SupportedTransitions, to: SupportedTransitions) => {
+  (animateValue: Animated.Value) =>
+  (initial: SupportedTransitions, to: SupportedTransitions) => {
     const styles: any = {
       transform: [],
     };
 
     const keys = Object.keys(initial);
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (key !== 'transition') {
         if (key in transformStylesMap) {
           styles.transform?.push({
@@ -56,7 +61,7 @@ const defaultTransitionConfig: TransitionConfig = {
   delay: 0,
 };
 
-const Transition = forwardRef<any, TransitionProps>((props, ref) => {
+const Transition = forwardRef<any, TransitionProps>((props) => {
   const {
     children,
     onTransitionComplete,
@@ -117,7 +122,13 @@ const Transition = forwardRef<any, TransitionProps>((props, ref) => {
     } else if (animationState === 'entered') {
       onTransitionComplete && onTransitionComplete('entered');
     }
-  }, [animationState, onTransitionComplete]);
+  }, [
+    animate?.transition,
+    animateValue,
+    animationState,
+    exit?.transition,
+    onTransitionComplete,
+  ]);
 
   React.useEffect(() => {
     if (prevVisible.current !== visible && !visible) {
@@ -130,11 +141,13 @@ const Transition = forwardRef<any, TransitionProps>((props, ref) => {
     prevVisible.current = visible;
   }, [visible]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const initialState =
     animationState === 'exited' && exit
       ? { ...defaultStyles, ...exit }
       : { ...defaultStyles, ...initial };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const animateState = { ...defaultStyles, ...animate };
 
   const styles = React.useMemo(() => {
@@ -145,10 +158,14 @@ const Transition = forwardRef<any, TransitionProps>((props, ref) => {
       ),
       style,
     ];
-  }, [animateValue, initial, animate, style]);
+  }, [animateValue, initialState, animateState, style]);
 
   return (
-    <Component pointerEvents={!visible ? 'none' : 'box-none'} ref={ref} style={styles} {...rest}>
+    <Component
+      pointerEvents={!visible ? 'none' : 'box-none'}
+      style={styles}
+      {...rest}
+    >
       {children}
     </Component>
   );

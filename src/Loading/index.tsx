@@ -6,7 +6,7 @@ import Circular from './Circular';
 import Spinner from './Spinner';
 import type { LoadingProps } from './type';
 
-const Loading: FC<LoadingProps> = memo(props => {
+const Loading: FC<LoadingProps> = memo((props) => {
   const {
     children,
     size = 30,
@@ -22,7 +22,10 @@ const Loading: FC<LoadingProps> = memo(props => {
 
   return (
     <View
-      style={[{ flexDirection: vertical ? 'column' : 'row', alignItems: 'center' }, style]}
+      style={[
+        { flexDirection: vertical ? 'column' : 'row', alignItems: 'center' },
+        style,
+      ]}
       {...rest}
     >
       {type === 'circular' ? (

@@ -1,7 +1,6 @@
 export { default as Theme } from './Theme';
 export * from './Theme';
 
-
 export * from './ActionBar';
 export * from './Portal';
 export * from './PanningViews';

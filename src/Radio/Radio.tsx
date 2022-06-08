@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, StyleProp, ViewStyle, Text, TouchableWithoutFeedback } from 'react-native';
+import {
+  View,
+  StyleProp,
+  ViewStyle,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { GroupContext } from './context';
 import Icon from '../Icon';
 import createStyle from './index.style';
@@ -71,7 +77,9 @@ const Radio = React.forwardRef<View, RadioProps>((props, ref) => {
 
   // radioGroup 存在时，已 group 的为准，否则以 props 为准
   const checked = radioGroup ? radioGroup.value === restProps.value : value;
-  const disabled = radioGroup ? restProps.disabled || radioGroup.disabled : restProps.disabled;
+  const disabled = radioGroup
+    ? restProps.disabled || radioGroup.disabled
+    : restProps.disabled;
 
   const handleCheckChange = () => {
     onChange(!checked);
@@ -120,7 +128,13 @@ const Radio = React.forwardRef<View, RadioProps>((props, ref) => {
         {renderIcon()}
         <View style={styles.labelContainer}>
           {typeof children === 'string' ? (
-            <Text style={[styles.label, disabled && styles.labelDisabled, { lineHeight: iconSie }]}>
+            <Text
+              style={[
+                styles.label,
+                disabled && styles.labelDisabled,
+                { lineHeight: iconSie },
+              ]}
+            >
               {children}
             </Text>
           ) : (

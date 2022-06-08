@@ -8,9 +8,17 @@ import type { DialogProps } from '../Dialog/type';
 import type { CellProps } from '../Cell/type';
 
 export type InputEvent = NativeSyntheticEvent<TextInputFocusEventData>;
-export type ContentSizeChangeEvent = NativeSyntheticEvent<TextInputContentSizeChangeEventData>;
+export type ContentSizeChangeEvent =
+  NativeSyntheticEvent<TextInputContentSizeChangeEventData>;
 
-export type FieldType = 'tel' | 'text' | 'digit' | 'number' | 'search' | 'password' | 'textarea';
+export type FieldType =
+  | 'tel'
+  | 'text'
+  | 'digit'
+  | 'number'
+  | 'search'
+  | 'password'
+  | 'textarea';
 
 export type FieldTextAlign = 'left' | 'center' | 'right';
 
@@ -30,14 +38,19 @@ export type FieldValidateError = {
   message: string;
 };
 
-export type FieldTooltipProps = Omit<DialogProps, 'visible'> & { icon?: React.ReactNode };
+export type FieldTooltipProps = Omit<DialogProps, 'visible'> & {
+  icon?: React.ReactNode;
+};
 
 export type FieldRule = {
   pattern?: RegExp;
   trigger?: FieldValidateTrigger;
   message?: string | ((value: any, rule: FieldRule) => string);
   required?: boolean;
-  validator?: (value: any, rule: FieldRule) => boolean | string | Promise<boolean | string>;
+  validator?: (
+    value: any,
+    rule: FieldRule
+  ) => boolean | string | Promise<boolean | string>;
   formatter?: (value: any, rule: FieldRule) => string;
 };
 

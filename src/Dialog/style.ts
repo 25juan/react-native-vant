@@ -24,7 +24,9 @@ type Styles = {
 
 const createStyle = (theme: DiceUI.Theme): Styles => {
   const containerWidth =
-    Constants.screenWidth <= 321 ? theme.dialog_small_screen_width : theme.dialog_width;
+    Constants.screenWidth <= 321
+      ? theme.dialog_small_screen_width
+      : theme.dialog_width;
 
   const actionBarButton: ViewStyle = {
     flex: 1,
@@ -76,7 +78,8 @@ const createStyle = (theme: DiceUI.Theme): Styles => {
       color: theme.text_color,
       fontSize: theme.dialog_message_font_size,
       lineHeight: theme.dialog_message_line_height,
-      maxHeight: theme.dialog_message_max_height + theme.dialog_message_padding * 2,
+      maxHeight:
+        theme.dialog_message_max_height + theme.dialog_message_padding * 2,
       overflow: 'scroll',
       paddingHorizontal: theme.dialog_message_padding,
       paddingVertical: 26,

@@ -7,4 +7,6 @@ export interface TabsContextState {
   setCurrentIndex: (index: number) => void;
 }
 
-export const TabsContext = createContext<TabsContextState>({} as TabsContextState);
+export const TabsContext = createContext<TabsContextState>(
+  {} as TabsContextState
+);

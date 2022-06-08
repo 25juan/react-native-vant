@@ -6,7 +6,8 @@ import type { TabPaneProps } from './type';
 export const TabPane = forwardRef<View, TabPaneProps>((props, ref) => {
   const { children, index, style } = props;
   const parent = useContext(TabsContext);
-  const { animated, swipeable, lazyRender, lazyRenderPlaceholder } = parent.props;
+  const { animated, swipeable, lazyRender, lazyRenderPlaceholder } =
+    parent.props;
 
   const active = parent.selectedIndex === index;
 

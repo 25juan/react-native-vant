@@ -3,7 +3,10 @@ import type { DividerProps } from './interface';
 
 type Params = Pick<DividerProps, 'contentPosition' | 'dashed' | 'hairline'>;
 
-export const createStyle = (theme: DiceUI.Theme, { dashed, hairline, contentPosition }: Params) => {
+export const createStyle = (
+  theme: DiceUI.Theme,
+  { dashed, hairline, contentPosition }: Params
+) => {
   return StyleSheet.create({
     divider: {
       alignItems: 'center',
@@ -21,12 +24,16 @@ export const createStyle = (theme: DiceUI.Theme, { dashed, hairline, contentPosi
 
     lineLeft: {
       marginRight: theme.divider_margin_horizontal,
-      maxWidth: contentPosition === 'left' ? theme.divider_content_left_width : 'auto',
+      maxWidth:
+        contentPosition === 'left' ? theme.divider_content_left_width : 'auto',
     },
 
     lineRight: {
       marginLeft: theme.divider_margin_horizontal,
-      maxWidth: contentPosition === 'right' ? theme.divider_content_right_width : 'auto',
+      maxWidth:
+        contentPosition === 'right'
+          ? theme.divider_content_right_width
+          : 'auto',
     },
 
     text: {

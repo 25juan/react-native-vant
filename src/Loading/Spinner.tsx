@@ -21,11 +21,11 @@ const Spinner: FC<Props> = memo(({ color, size }) => {
         easing: Easing.linear,
       })
     ).start();
-  }, []);
+  }, [rotate]);
 
   useEffect(() => {
     startRotation();
-  }, []);
+  }, [startRotation]);
 
   return (
     <Animated.View

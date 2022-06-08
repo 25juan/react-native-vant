@@ -7,7 +7,7 @@ import { useThemeFactory } from '../Theme';
 import { createStyle } from './style';
 import type { DividerProps } from './interface';
 
-const Divider: FC<DividerProps> = props => {
+const Divider: FC<DividerProps> = (props) => {
   const {
     children,
     textStyle,
@@ -17,12 +17,20 @@ const Divider: FC<DividerProps> = props => {
     hairline = true,
     contentPosition = 'center',
   } = props;
-  const { styles } = useThemeFactory(createStyle, { dashed, hairline, contentPosition });
+  const { styles } = useThemeFactory(createStyle, {
+    dashed,
+    hairline,
+    contentPosition,
+  });
 
   const styleSummary: ViewStyle = StyleSheet.flatten([styles.divider, style]);
 
   const renderLine = (extraStyle: ViewStyle = {}) => {
-    const styleFlatten = StyleSheet.flatten([styles.line, extraStyle, lineStyle]);
+    const styleFlatten = StyleSheet.flatten([
+      styles.line,
+      extraStyle,
+      lineStyle,
+    ]);
 
     return dashed ? (
       <Dash

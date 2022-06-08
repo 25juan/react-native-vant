@@ -17,7 +17,15 @@ const show = (props: DialogProps) => {
     closeOnClickOverlay: false,
   };
 
-  const { onClosed, onCancel, onConfirm, onClose, cancelProps, confirmProps, ...restProps } = props;
+  const {
+    onClosed,
+    onCancel,
+    onConfirm,
+    onClose,
+    cancelProps,
+    confirmProps,
+    ...restProps
+  } = props;
 
   let destroy = noop;
   const key = `dialog_${++currentKey}`;
@@ -84,7 +92,7 @@ const show = (props: DialogProps) => {
 const alert = (props: AlertDialogProps) => {
   const { onConfirm = noop } = props;
 
-  return new Promise<void>(resolve => {
+  return new Promise<void>((resolve) => {
     show({
       ...props,
       onConfirm: () => {

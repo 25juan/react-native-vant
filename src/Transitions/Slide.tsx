@@ -28,13 +28,22 @@ const holderStyle: Record<Placement, any> = {
 };
 
 const Slide = forwardRef<any, SlideProps>((props, ref) => {
-  const { in: visible, duration, delay, placement = 'bottom', overlay, children, ...rest } = props;
+  const {
+    in: visible,
+    duration,
+    delay,
+    placement = 'bottom',
+    overlay,
+    children,
+    ...rest
+  } = props;
 
   const [containerOpacity, setContainerOpacity] = React.useState(0);
   const [size, setSize] = React.useState(0);
 
   const provideSize = (layoutSize: any) => {
-    if (placement === 'right' || placement === 'left') setSize(layoutSize.width);
+    if (placement === 'right' || placement === 'left')
+      setSize(layoutSize.width);
     else setSize(layoutSize.height);
     setContainerOpacity(1);
   };
@@ -88,14 +97,18 @@ const Slide = forwardRef<any, SlideProps>((props, ref) => {
     <Transition
       visible={visible}
       {...animationStyle[placement]}
-      style={[{ position: 'absolute' }, holderStyle[placement], { height: '100%' }]}
+      style={[
+        { position: 'absolute' },
+        holderStyle[placement],
+        { height: '100%' },
+      ]}
     >
       <View
         {...rest}
         style={[{ opacity: containerOpacity }, rest.style]}
         pointerEvents="box-none"
         ref={ref}
-        onLayout={e => provideSize(e.nativeEvent.layout)}
+        onLayout={(e) => provideSize(e.nativeEvent.layout)}
       >
         {children}
       </View>

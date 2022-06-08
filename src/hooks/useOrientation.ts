@@ -21,9 +21,11 @@ const useOrientation: UseOrientation = ({ onOrientationChange }) => {
   }, []);
 
   useEffect(() => {
-    const listener = constants.addDimensionsEventListener(orientationChangeListener);
+    const listener = constants.addDimensionsEventListener(
+      orientationChangeListener
+    );
     return () => constants.removeDimensionsEventListener(listener);
-  }, []);
+  }, [orientationChangeListener]);
 
   useUpdateEffect(() => {
     onOrientationChange?.(orientation);

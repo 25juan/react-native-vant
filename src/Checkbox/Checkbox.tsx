@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, StyleProp, ViewStyle, Text, TouchableWithoutFeedback } from 'react-native';
+import {
+  View,
+  StyleProp,
+  ViewStyle,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { GroupContext } from './content';
 import Icon from '../Icon';
 import createStyle from './index.style';
@@ -45,7 +51,9 @@ export interface CheckboxProps {
   /**
    * 自定义图标
    */
-  icon?: (params: CheckboxIconRenderParams) => React.ReactNode | React.ReactNode;
+  icon?: (
+    params: CheckboxIconRenderParams
+  ) => React.ReactNode | React.ReactNode;
 }
 
 const Checkbox = React.forwardRef<View, CheckboxProps>((props, ref) => {
@@ -72,6 +80,7 @@ const Checkbox = React.forwardRef<View, CheckboxProps>((props, ref) => {
 
   React.useEffect(() => {
     checkboxGroup?.registerValue(restProps.value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
@@ -80,10 +89,12 @@ const Checkbox = React.forwardRef<View, CheckboxProps>((props, ref) => {
       checkboxGroup?.registerValue(restProps.value);
     }
     return () => checkboxGroup?.cancelValue(restProps.value);
-  }, [restProps.value]);
+  }, [checkboxGroup, restProps.value]);
 
   // checkboxGroup 存在时，已 group 的为准，否则以 props 为准
-  const checked = checkboxGroup ? checkboxGroup.value.indexOf(restProps.value) !== -1 : value;
+  const checked = checkboxGroup
+    ? checkboxGroup.value.indexOf(restProps.value) !== -1
+    : value;
   const disabled = checkboxGroup
     ? restProps.disabled || checkboxGroup.disabled
     : restProps.disabled;
@@ -135,7 +146,13 @@ const Checkbox = React.forwardRef<View, CheckboxProps>((props, ref) => {
         {renderIcon()}
         <View style={styles.labelContainer}>
           {typeof children === 'string' ? (
-            <Text style={[styles.label, disabled && styles.labelDisabled, { lineHeight: iconSie }]}>
+            <Text
+              style={[
+                styles.label,
+                disabled && styles.labelDisabled,
+                { lineHeight: iconSie },
+              ]}
+            >
               {children}
             </Text>
           ) : (

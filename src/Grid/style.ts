@@ -7,7 +7,9 @@ interface Styles {
   borderTop: ViewStyle;
 }
 
-export const createStyle = (theme: DiceUI.Theme): StyleSheet.NamedStyles<Styles> => {
+export const createStyle = (
+  theme: DiceUI.Theme
+): StyleSheet.NamedStyles<Styles> => {
   return StyleSheet.create<Styles>({
     borderTop: {
       borderTopColor: theme.border_color,
@@ -65,9 +67,13 @@ export const createItemStyle = (
       lineHeight: 1.5 * theme.grid_item_text_font_size,
       ...(icon ? margin(theme.padding_xs, 0, 0, 0) : null),
       ...(direction === 'horizontal' ? { flexDirection: 'row' } : null),
-      ...(icon && direction === 'horizontal' ? margin(0, 0, 0, theme.padding_xs) : null),
+      ...(icon && direction === 'horizontal'
+        ? margin(0, 0, 0, theme.padding_xs)
+        : null),
       ...(icon && reverse ? margin(0, 0, theme.padding_xs, 0) : null),
-      ...(icon && direction === 'horizontal' && reverse ? margin(0, theme.padding_xs, 0, 0) : null),
+      ...(icon && direction === 'horizontal' && reverse
+        ? margin(0, theme.padding_xs, 0, 0)
+        : null),
     },
   });
 };

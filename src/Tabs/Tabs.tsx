@@ -16,10 +16,15 @@ const Tabs = forwardRef<View, TabsProps>((props, ref) => {
     trigger: 'onChange',
   });
 
-  const childrenList = useMemo(() => parseChildList<TabPaneProps>(children), [children]);
+  const childrenList = useMemo(
+    () => parseChildList<TabPaneProps>(children),
+    [children]
+  );
 
   const beforeChange = useMemoizedFn((idx: number): Promise<boolean> => {
-    return Promise.resolve(isFunction(props.beforeChange) ? props.beforeChange(idx) : true);
+    return Promise.resolve(
+      isFunction(props.beforeChange) ? props.beforeChange(idx) : true
+    );
   });
 
   const handleTabChange = useMemoizedFn(async (idx: number) => {
@@ -33,7 +38,7 @@ const Tabs = forwardRef<View, TabsProps>((props, ref) => {
       selectedIndex: currentIndex,
       setCurrentIndex: handleTabChange,
     }),
-    [currentIndex, props]
+    [currentIndex, handleTabChange, props]
   );
 
   return (
@@ -47,7 +52,9 @@ const Tabs = forwardRef<View, TabsProps>((props, ref) => {
           currentIndex={currentIndex}
           onChange={handleTabChange}
         >
-          {childrenList.map((item, index) => React.cloneElement(item.node, { index }))}
+          {childrenList.map((item, index) =>
+            React.cloneElement(item.node, { index })
+          )}
         </TabsContent>
       </View>
     </TabsContext.Provider>

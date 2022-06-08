@@ -17,7 +17,8 @@ interface Props {
   style?: ViewStyle;
 }
 
-const getPercent = (count?: number) => (count ? `${(count / 24) * 100}%` : undefined);
+const getPercent = (count?: number) =>
+  count ? `${(count / 24) * 100}%` : undefined;
 
 const LayoutCol: FC<Props> = ({ span, offset, style, children }) => {
   const { gutter } = useContext(RowContext);
@@ -30,7 +31,13 @@ const LayoutCol: FC<Props> = ({ span, offset, style, children }) => {
     : {};
 
   return (
-    <View style={[{ width: getPercent(span), marginLeft: getPercent(offset) }, mergedStyle, style]}>
+    <View
+      style={[
+        { width: getPercent(span), marginLeft: getPercent(offset) },
+        mergedStyle,
+        style,
+      ]}
+    >
       {children}
     </View>
   );

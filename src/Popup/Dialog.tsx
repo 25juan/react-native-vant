@@ -1,9 +1,13 @@
-import React, { memo } from 'react';
+import React, { memo, ReactElement } from 'react';
 import Overlay from '../Overlay';
 import View from '../View';
 import DismissibleView from './DismissibleView';
 import { useMemoizedFn } from '../hooks';
-import { PanningProvider, PanListenerView, PanningDirections } from '../PanningViews';
+import {
+  PanListenerView,
+  PanningDirections,
+  PanningProvider,
+} from '../PanningViews';
 import type { DialogProps, Position } from './type';
 import { getOverlayStyle } from './style';
 
@@ -14,13 +18,14 @@ const DirecationMap: Record<Exclude<Position, 'center'>, PanningDirections> = {
   top: PanningProvider.Directions.UP,
 };
 
-const Dialog = (props: DialogProps): JSX.Element => {
+const Dialog: React.FC<DialogProps> = (props): JSX.Element => {
   const {
     visible,
     position = 'bottom',
     overlay = true,
     duration = 300,
     renderPannableHeader,
+    children,
   } = props;
 
   const handleClose = useMemoizedFn(() => {
@@ -39,7 +44,6 @@ const Dialog = (props: DialogProps): JSX.Element => {
     }
 
     const direction = DirecationMap[position];
-
     return (
       <PanningProvider>
         <DismissibleView
@@ -52,10 +56,14 @@ const Dialog = (props: DialogProps): JSX.Element => {
           }}
         >
           <Container directions={[direction]}>
-            {renderPannableHeader && (
-              <PanListenerView directions={[direction]}>{renderPannableHeader()}</PanListenerView>
+            {renderPannableHeader ? (
+              <PanListenerView directions={[direction]}>
+                {renderPannableHeader()}
+              </PanListenerView>
+            ) : (
+              <></>
             )}
-            {props.children}
+            {children as ReactElement}
           </Container>
         </DismissibleView>
       </PanningProvider>
