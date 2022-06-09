@@ -1,61 +1,108 @@
-import React, { useState } from 'react';
-import { FlatList } from 'react-native';
-import { Cell, registerIcons } from 'react-native-vant';
+import React from 'react';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
+import { getRouteGroup, RouteItem } from './routes';
+import { DemoBlock } from '../../components';
+import { lightTheme } from '../../style/vars';
 
-registerIcons({
-  'component.button': require('../../icons/component.png'),
-});
-interface IMenuItemProps {
-  title: string;
-  path: string;
-  icon: string | number;
-}
-const defaultMenus: Array<IMenuItemProps> = [
-  {
-    title: 'Button 按钮',
-    icon: 'component.button',
-    path: '',
-  },
-  {
-    title: 'Badge 角标',
-    icon: '',
-    path: '',
-  },
-  {
-    title: 'Icon 图标',
-    icon: '',
-    path: '',
-  },
-  {
-    title: 'ConfigProvider 全局配置',
-    icon: '',
-    path: '',
-  },
-  {
-    title: 'Cell 单元格',
-    icon: '',
-    path: '',
-  },
-];
+const routeGroup = getRouteGroup();
 
-const Component: React.FC<{}> = () => {
-  const [components] = useState<Array<IMenuItemProps>>(defaultMenus);
-  const handleClick = () => {};
+const Home = () => {
+  const themeVars = lightTheme;
+
+  const onLinkPress = (item: RouteItem) => {};
+
   return (
-    <FlatList
-      data={components}
-      renderItem={({ item, index }) => (
-        <Cell
-          isLink
-          border
-          key={index}
-          onClick={handleClick}
-          icon={'component.button'}
-          title={item.title}
-        />
-      )}
-    />
+    <SafeAreaView style={styles.wrapper}>
+      <ScrollView style={{ paddingHorizontal: 20 }}>
+        <View style={styles.header}>
+          <Image
+            source={{ uri: 'https://img01.yzcdn.cn/vant/logo.png' }}
+            style={styles.logo}
+          />
+          <Text style={[styles.title, { color: themeVars.text_color_2 }]}>
+            RN Vant
+          </Text>
+        </View>
+        {routeGroup.map((it) => (
+          <DemoBlock title={it.name} key={it.name}>
+            {it.list.map((item, idx) => (
+              <TouchableOpacity
+                style={[
+                  styles.link,
+                  idx === it.list.length - 1 && styles.linkLast,
+                ]}
+                key={item.href}
+                onPress={() => onLinkPress(item)}
+              >
+                <View
+                  style={[
+                    styles.item,
+                    { backgroundColor: themeVars.background_3 },
+                  ]}
+                >
+                  <Text
+                    style={[styles.text, { color: themeVars.text_color_3 }]}
+                  >
+                    {item.name}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </DemoBlock>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
-export default Component;
+const styles = StyleSheet.create({
+  header: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingLeft: 16,
+  },
+  item: {
+    alignItems: 'center',
+    borderRadius: 99,
+    display: 'flex',
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingLeft: 20,
+    paddingRight: 16,
+    width: '100%',
+  },
+  link: {
+    height: 40,
+    marginBottom: 12,
+  },
+  linkLast: {
+    marginBottom: 0,
+  },
+  logo: {
+    height: 32,
+    width: 32,
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: '600',
+    lineHeight: 40,
+  },
+  title: {
+    fontSize: 32,
+    marginLeft: 16,
+  },
+  wrapper: {
+    paddingBottom: 20,
+  },
+});
+
+export default Home;

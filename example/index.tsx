@@ -2,10 +2,20 @@ import { Navigation } from 'react-native-navigation';
 import Component from './src/pages/Component';
 import Tool from './src/pages/Tool';
 import Template from './src/pages/Template';
+import { routes } from './src/pages/Component/routes';
+import { GlobalContext } from './src/GlobalContext';
+
 
 Navigation.registerComponent('Component', () => Component);
 Navigation.registerComponent('Tool', () => Tool);
 Navigation.registerComponent('Template', () => Template);
+routes.forEach((route: any) =>
+  Navigation.registerComponent(
+    route.href,
+    () => route.component,
+    () => GlobalContext.Provider
+  )
+);
 
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
